@@ -60,7 +60,7 @@ const Single = () => {
   const setTheme = () => {
     return localStorage.getItem('theme')
   }
-  return ( post.length > 0 &&
+  return ( 
     <div className={`flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>
       <div className='md:w-[50%]'>
         <div className='mb-2.5 '>
