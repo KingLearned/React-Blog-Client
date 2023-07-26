@@ -61,8 +61,10 @@ const Single = () => {
     return localStorage.getItem('theme')
   }
   return ( 
-    <div className={`flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>
+    // post.length > 0
+    <div className={`flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>  
       <div className='md:w-[50%]'>
+
         <div className='mb-2.5 '>
           <img className='max-h-[400px] w-full' src={`/uploads/${post[0].img}`} alt={post[0].img} />
         </div>
