@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar'
 import { AuthContext } from '@/contexts/authContext'
 import Proxy from '@/shared/Proxy'
 import axios from 'axios'
@@ -73,9 +74,11 @@ const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, nav
   
 
   return (
-    <div className={`h-[100vh] ${justfyCenter}`}>
+    <>
+    <Navbar />
+    <div className={`h-[88vh] ${justfyCenter} mx-5`}>
       <h1 className='font-[900] text-[20px] my-3'>{Lable}</h1>
-      <form className={`${justfyCenter} bg-primary-500 p-5 w-full sm:w-[70%] md:w-[40%] rounded-md`} action="">
+      <form className={`${justfyCenter} bg-primary-500 p-5 w-full sm:w-[70%] md:w-[40%]  rounded-md`} action="">
         <input type="text" name='username' className={inputStyle} placeholder={placeholderUsername} onChange={handleChange} />
         {needEmail && <input type="email" name='email' className={inputStyle} placeholder='Email' onChange={handleChange} />}
         <input type="password" name='pwd' className={inputStyle}  placeholder={placeholderPwd} onChange={handleChange} />
@@ -86,6 +89,7 @@ const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, nav
         <span className={justfyCenter}>{Que} <Link className='text-secondary-500 font-bold' to={`/${navTo.toLocaleLowerCase()}`}>{navTo}</Link></span>
       </form>
     </div>
+    </>
   )
 }
 

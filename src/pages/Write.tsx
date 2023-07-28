@@ -28,7 +28,7 @@ const Write:any = () => {
 
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('')
-  const [img, setImg] = useState('')
+  const [postImg, setPostImg] = useState('')
   const [cat, setCat] = useState('')
 
   useEffect(() => {
@@ -37,23 +37,47 @@ const Write:any = () => {
     setCat(state?.cat || '')
   }, [state])
 
-  const upload = async () => { //For Uploading of New Image
+  //IMAGE INSTANT PREVIEWER
+  const [imgcache,setImgcache] = useState('')
+  const handImgChange = (e:any) => {
+    const cacheImg = e.target.files[0]
+    setPostImg(e.target.files[0])
+    
+    const cacheUpload = async () => {
+      try{
+        const formData = new FormData()
+        formData.append('cache', cacheImg)
+        const res = await axios.post(`${Proxy}/imgpreview`, formData)
+        return setImgcache(res.data)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    cacheUpload()
+  }
+
+  // FOR UPLOADING OF NEW IMAGE
+  const upload = async () => {
     try{
       const formData = new FormData()
-      formData.append('file', img)
+      formData.append('file', postImg)
       const res = await axios.post(`${Proxy}/upload`, formData)
       return res.data
     }catch(err){
       console.log(err)
     }
   }
-
+  
+  const [errMsg,setErrMsg] = useState('')
   const handleSubmit = async (e:any) => {
     e.preventDefault()
-    const imgUrl = !state &&  await upload()
+    if(!title) return setErrMsg('No post title')
+    if(!value) return setErrMsg('No written article')
+    if(!cat) return setErrMsg('No category selected')
     
+    
+    const imgUrl = !state &&  await upload()
     try{
-
       //UPDATING OF AN EXISTING POST
       state ? (await axios.put(`${Proxy}/posts/${state.postId}`, {
         title:title, descrp:value, cat:cat, img: state ? state.img : imgUrl, userId:currentUser.secureToken
@@ -98,18 +122,21 @@ const Write:any = () => {
         <div className="border-[1px] border-gray-500 mt-2.5 p-3 h-[44%] flex flex-col relative">
 
           <div className=' h-[100px] w-[35%] border-[1px] border-gray-500 absolute rounded-md right-5'>
-            {/* <img className="h-full w-full" src={`/cacheImages/4CA7JOSWC87.jpg`} alt="" /> */}
+            {imgcache && <img className="h-full w-full" src={`cacheImages/${imgcache}`} alt={imgcache} />}
           </div>
 
           <h1 className='font-bold text-2xl'>Publish</h1>
           <span><b>Status: </b> Draft</span>
           <span><b>Visibility: </b> Public</span>
-          <input type="file" id='newsImg' name='newsImg' hidden onChange={(e:any) => {setImg(e.target.files[0])}} />
+
+          <input type="file" id='newsImg' name='newsImg' hidden onChange={handImgChange} />
+
           <label htmlFor="newsImg" className="flex cursor-pointer">Upload <PhotoIcon className='w-[25px]' /></label>
           <div className='mt-5 flex justify-between'>
             <button className={`${btnStyle}`}>Save as draft</button>
             <button className={`${btnStyle} bg-secondary-500`} onClick={handleSubmit}>Publish</button>
           </div>
+          <p className='font-bold mt-1'>{errMsg && `Error: ${errMsg}`}</p>
         </div>
 
         <div className="border-[1px] border-gray-500 my-5 p-3 h-[44%]" >

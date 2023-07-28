@@ -14,14 +14,14 @@ const Navbar = ({}) => {
 
   const logOutBtn = <span className='flex' onClick={logout} ><ArrowLeftOnRectangleIcon className="w-[25px]" /> Logout</span>
   const logInBtn = <Link to='login' className='flex'><ArrowRightOnRectangleIcon className="w-[25px]" /> Login</Link>
-  const btnStyle = 'cursor-pointer text-white bg-gray-400 rounded-3xl px-2 py-1'
+  const btnStyle = `cursor-pointer rounded-3xl px-2 py-1 ${currentUser ? 'text-black bg-secondary-500' : 'text-white bg-gray-400'}`
   
   return (
     <div className='font-bold sticky top-0 z-50'>
       <div className='flex items-center justify-between bg-gray-100 py-2 px-3'>
         <div>
           <Link to='/'>
-            <img className='min-w-[100px] ' src={Logo} alt="Logo.png" />
+            <img className='min-w-[100px] max-w-[150px]' src={Logo} alt="Logo.png" />
           </Link>
         </div>
         {isAboveMediumScreens ? (

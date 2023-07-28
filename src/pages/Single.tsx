@@ -57,13 +57,12 @@ const Single = () => {
     }
   }
 
-  const setTheme = () => {
-    return localStorage.getItem('theme')
-  }
+  const setTheme = () => { return localStorage.getItem('theme') }
+
   return ( 
-    // post.length > 0
-    <div className={`flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>  
-      <div className='md:w-[50%]'>
+    post.length > 0 &&
+    <div className={` min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>  
+      <div className='md:w-[50%] '>
 
         <div className='mb-2.5 '>
           <img className='max-h-[400px] w-full' src={`/uploads/${post[0].img}`} alt={post[0].img} />
@@ -74,8 +73,8 @@ const Single = () => {
         <div className="flex items-center">
           <img className='rounded-full h-[30px] w-[30px]' src={postImg} alt={postImg} />
           <div className="mx-2">
-            <span className=''>{ post[0].username ? post[0].username : 'John'}</span>
-            <p className='-mt-1.5'>Posted {moment(post[0].date).fromNow()}</p>
+            <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
+            <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {moment(post[0].date).fromNow()}</p>
           </div>
           {currentUser?.username === post[0].username && 
           <>
