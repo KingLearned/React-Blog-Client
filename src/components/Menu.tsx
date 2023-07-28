@@ -1,5 +1,4 @@
 import Proxy from "@/shared/Proxy";
-import { postImg } from "@/shared/allAssets"
 import { plainText, postInterface } from "@/shared/defineTypes";
 import axios from "axios";
 import { useEffect, useState } from "react";
