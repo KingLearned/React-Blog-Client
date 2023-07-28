@@ -10,7 +10,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import userimage from '../assets/userimg.jpg'
+import userimage from '@/assets/userimg.jpg'
 
 
 const edits = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
