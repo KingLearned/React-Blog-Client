@@ -60,8 +60,8 @@ const Single = () => {
   const setTheme = () => { return localStorage.getItem('theme') }
 
   return ( 
-    post.length > 0 &&
     <div className={` min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>  
+    {post.length > 0 && <>
       <div className='md:w-[50%] '>
 
         <div className='mb-2.5 '>
@@ -94,6 +94,8 @@ const Single = () => {
           <div dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
       </div>
       <Menu category={post[0].cat} mainNews={post[0].title} />
+      </>
+    }
     </div>
   )
 }

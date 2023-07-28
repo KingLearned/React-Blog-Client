@@ -48,8 +48,9 @@ const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, nav
         (
           setError(res.data.Error),
           setTimeout(() => { setError('') }, 3000)
-        ) 
+        )
         :
+        res.data.success &&
         navigate('/login')
       )
       :
