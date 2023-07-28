@@ -5,8 +5,7 @@ import useMediaQuery from '@/hooks/useMediaQuery'
 import { ArrowLeftOnRectangleIcon, XMarkIcon, ArrowRightOnRectangleIcon, UserIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import Linker from '@/shared/Linker'
 import Themes from '@/shared/Themes'
-import weblogo from '.././assets/logo.png'
-// import weblogo from '@/assets/logo.png'
+import weblogo from '@/assets/logo.png'
 
 
 const Navbar = ({}) => {
