@@ -1,5 +1,4 @@
-import Logo from '.././assets/logo.png'
-// import Logo from '@/assets/logo.png'
+import Logo from '@/assets/logo.png'
 
 const Footer = () => {
   return (
