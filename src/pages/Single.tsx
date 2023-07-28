@@ -70,6 +70,7 @@ const Single = () => {
         <div className='flex justify-between my-5 shadow-md p-5 rounded-md'>
           <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
         </div>
+
         <div className="flex items-center">
           <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
           <div className="mx-2">
@@ -87,10 +88,10 @@ const Single = () => {
           </>
           }
         </div>
+
         <div>
           <h1 className='font-bold text-[30px]'>{post[0].title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: post[0].descrp}} />
-          </div>
+          <div dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
       </div>
       <Menu category={post[0].cat} mainNews={post[0].title} />
     </div>
