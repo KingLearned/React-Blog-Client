@@ -1,3 +1,4 @@
+import weblogo from '@/assets/logo.png'
 import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '@/contexts/authContext'
@@ -5,7 +6,7 @@ import useMediaQuery from '@/hooks/useMediaQuery'
 import { ArrowLeftOnRectangleIcon, XMarkIcon, ArrowRightOnRectangleIcon, UserIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import Linker from '@/shared/Linker'
 import Themes from '@/shared/Themes'
-import Logo from '@/assets/logo.png'
+
 
 const Navbar = ({}) => {
   const { currentUser, logout } = useContext(AuthContext)
@@ -21,7 +22,7 @@ const Navbar = ({}) => {
       <div className='flex items-center justify-between bg-gray-100 py-2 px-3'>
         <div>
           <Link to='/'>
-            <img className='min-w-[100px] max-w-[150px]' src={Logo} alt={Logo} />
+            <img className='min-w-[100px] max-w-[150px]' src={weblogo} alt={weblogo} />
           </Link>
         </div>
         {isAboveMediumScreens ? (
