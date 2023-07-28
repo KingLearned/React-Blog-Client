@@ -5,10 +5,10 @@ import useMediaQuery from '@/hooks/useMediaQuery'
 import { ArrowLeftOnRectangleIcon, XMarkIcon, ArrowRightOnRectangleIcon, UserIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import Linker from '@/shared/Linker'
 import Themes from '@/shared/Themes'
-import weblogo from '@/assets/logo.png'
+import weblogo from "@/assets/logo.png"
 
 
-const Navbar = ({}) => {
+const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext)
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
