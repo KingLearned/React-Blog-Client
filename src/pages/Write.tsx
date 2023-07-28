@@ -1,6 +1,5 @@
 import { AuthContext } from '@/contexts/authContext'
 import Proxy from '@/shared/Proxy'
-import { postImg } from '@/shared/allAssets'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import axios from 'axios'
 import moment from 'moment'

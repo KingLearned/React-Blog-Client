@@ -4,13 +4,13 @@ import Comments from '@/shared/Comments'
 import Likes from '@/shared/Likes'
 import Proxy from '@/shared/Proxy'
 import Views from '@/shared/Views'
-import { postImg } from '@/shared/allAssets'
 import { singlePostInterface } from '@/shared/defineTypes'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid'
 import axios from 'axios'
 import moment from 'moment'
 import { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import userimage from '../assets/userimg.jpg'
 
 
 const edits = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
@@ -71,7 +71,7 @@ const Single = () => {
           <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
         </div>
         <div className="flex items-center">
-          <img className='rounded-full h-[30px] w-[30px]' src={postImg} alt={postImg} />
+          <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
           <div className="mx-2">
             <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
             <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {moment(post[0].date).fromNow()}</p>
