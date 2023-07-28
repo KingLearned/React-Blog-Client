@@ -5,7 +5,7 @@ import useMediaQuery from '@/hooks/useMediaQuery'
 import { ArrowLeftOnRectangleIcon, XMarkIcon, ArrowRightOnRectangleIcon, UserIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import Linker from '@/shared/Linker'
 import Themes from '@/shared/Themes'
-import weblogo from "@/assets/logo.png"
+import { Logo } from './useimg'
 
 
 const Navbar = () => {
@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className='flex items-center justify-between bg-gray-100 py-2 px-3'>
         <div>
           <Link to='/'>
-            <img className='min-w-[100px] max-w-[150px]' src={weblogo} alt={weblogo} />
+            <img className='min-w-[100px] max-w-[150px]' src={Logo} alt={Logo} />
           </Link>
         </div>
         {isAboveMediumScreens ? (
