@@ -13,6 +13,7 @@ import { setPostLikes } from '@/shared/setPostLikes';
 
 
 const Home = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   const [posts,setPosts] = useState([])
 
   setPostLikes(posts) //HANDLE THE POST LIKES FROM THE LOCAL STORAGE

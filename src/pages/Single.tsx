@@ -23,6 +23,7 @@ const P = ( { children }:Props ) => {
   )
 }
 const Single = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   const [post,setPost] = useState<singlePostInterface[]>([])
 
   const Location = useLocation()
@@ -91,7 +92,7 @@ const Single = () => {
 
         <div>
           <h1 className='font-bold text-[30px]'>{post[0].title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
+          <div className='text-justify' dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
       </div>
       <Menu category={post[0].cat} mainNews={post[0].title} />
       </>
