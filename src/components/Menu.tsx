@@ -39,18 +39,18 @@ const Menu = ({ category, mainNews }:Props) => {
             <h1 className="text-center text-xl font-bold bg-gray-500 text-white py-1">RELATED ARTICLES</h1>
             <div className='mt-2'>
                 {posts.map((post: postInterface) => ( post.title !== mainNews &&
-                <div className={`relative mb-10`} key={post.postId}>
-                    <div className={`w-full mb-3`}>
-                        <img className="w-full h-[200px]" src={`/uploads/${post.img}`} alt={post.img} />
-                    </div>
-                    <div>
-                        <h1 className='text-2xl font-bold'>{post.title}</h1>
-                        <p> {(plainText(post.descrp)).slice(0,120)}...</p> 
-                        <button className='border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
-                            <Link to={`/post/${post.postId}`}>Read More</Link>
-                        </button>
-                    </div>
-                </div>
+                  <div className={`relative mb-10`} key={post.postId}>
+                      <div className={`w-full mb-3`}>
+                          <img className="w-full h-[200px]" src={`/uploads/${post.img}`} alt={post.img} />
+                      </div>
+                      <div>
+                          <h1 className='text-2xl font-bold'>{post.title}</h1>
+                          <p> {(plainText(post.descrp)).slice(0,120)}...</p> 
+                          <button className='border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
+                              <Link to={`/post/${post.postId}`}>Read More</Link>
+                          </button>
+                      </div>
+                  </div>
                 ))}
             </div>
         </div>

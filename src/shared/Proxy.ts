@@ -1,4 +1,4 @@
-// const Proxy = 'http://localhost:8800/server'
-const Proxy = 'https://learnedsblog-api.onrender.com/server'
+// const Proxy = 'http://localhost:1000/server'
+const Proxy = 'https://learnedsblogapi.vercel.app/server'
 
 export default Proxy
