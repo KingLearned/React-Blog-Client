@@ -8,7 +8,7 @@ import Views from '@/shared/Views';
 import Comments from '@/shared/Comments';
 import Likes from '@/shared/Likes';
 import { setPostLikes } from '@/shared/setPostLikes';
-
+import ImagePath from '@/shared/cloudImg';
 
 const Home = () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
@@ -58,6 +58,7 @@ const Home = () => {
       </>
     )
   }
+
   return (
     <div className={`mt-5 ${setTheme() && 'text-white'}`}>
       <div className='md:mx-20 mx-10 mt-5 min-h-[75vh]' key={12}>
@@ -67,7 +68,7 @@ const Home = () => {
             <div className={`relative border-b-[1px] border-gray-500 md:flex pb-8 mb-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
               <div className={`md:mx-10 md:w-[40%]  mb-3`}>
-                  <img className='w-full h-[300px]' src={`/uploads/${post.img}`} alt={post.img} />
+                  <img className='w-full h-[300px]' src={ImagePath(post.img)} alt={post.img} />
               </div>
 
               <div className='md:w-[60%] md:px-10'>

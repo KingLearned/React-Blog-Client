@@ -19,6 +19,7 @@ type Props = {
 
 
 
+
 const Write:any = () => {
   const state = useLocation().state
   
@@ -38,16 +39,18 @@ const Write:any = () => {
 
   //IMAGE INSTANT PREVIEWER
   const [imgcache,setImgcache] = useState('')
+
   const handImgChange = (e:any) => {
     const cacheImg = e.target.files[0]
     setPostImg(e.target.files[0])
-    
+
     const cacheUpload = async () => {
       try{
         const formData = new FormData()
         formData.append('cache', cacheImg)
         const res = await axios.post(`${Proxy}/imgpreview`, formData)
         return setImgcache(res.data)
+
       }catch(err){
         console.log(err)
       }
@@ -59,7 +62,7 @@ const Write:any = () => {
   const upload = async () => {
     try{
       const formData = new FormData()
-      formData.append('file', postImg)
+      formData.append('mainImg', postImg)
       const res = await axios.post(`${Proxy}/upload`, formData)
       return res.data
     }catch(err){
@@ -77,7 +80,7 @@ const Write:any = () => {
     
     const imgUrl = !state &&  await upload()
     try{
-      //UPDATING OF AN EXISTING POST
+      // UPDATING OF AN EXISTING POST
       state ? (await axios.put(`${Proxy}/posts/${state.postId}`, {
         title:title, descrp:value, cat:cat, img: state ? state.img : imgUrl, userId:currentUser.secureToken
       }),
@@ -121,7 +124,7 @@ const Write:any = () => {
         <div className="border-[1px] border-gray-500 mt-2.5 p-3 h-[44%] flex flex-col relative">
 
           <div className=' h-[100px] w-[35%] border-[1px] border-gray-500 absolute rounded-md right-5'>
-            {imgcache && <img className="h-full w-full" src={`cacheImages/${imgcache}`} alt={imgcache} />}
+            {imgcache && <img className="h-full w-full" src={`https://cloud.appwrite.io/v1/storage/buckets/cacheBucket/files/${imgcache}/view?project=64c7e9ee17c84cabe3cd&mode=admin`} alt={imgcache} />}
           </div>
 
           <h1 className='font-bold text-2xl'>Publish</h1>

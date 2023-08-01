@@ -17,12 +17,7 @@ const Likes = ({postId, likes}:Props) => {
     
     useEffect(() => {
         setNewLikes(likes)
-    },[])
-
-    // const likeNum = (e:number) => {
-    //     // console.log(e)
-    //     return e
-    // }
+    },[likes])
 
     const updateLikes = async (likeNumber:number) => {
         
@@ -43,7 +38,7 @@ const Likes = ({postId, likes}:Props) => {
             ? 
             (setNewLikes(newLikes+1),updateLikes(newLikes+1)) 
             : 
-            (setNewLikes(newLikes-1),updateLikes(newLikes-1));
+            (setNewLikes(newLikes-1),updateLikes(newLikes-1))
             
             
         }} className='cursor-pointer ml-1 w-[20px]'/></div>
