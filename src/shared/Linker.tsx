@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 
 
@@ -7,6 +8,7 @@ type Props = {
 };
 
 const Linker = ({ page }: Props) => {
+
     const lowerCasePage = page.toLowerCase()
     const Location = useLocation()
     const currentLink = Location.search.replace(/[^a-z]/g, '').slice(3)

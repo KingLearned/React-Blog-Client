@@ -4,7 +4,7 @@ const Login = () => {
 
   return (
     <Form 
-    Lable='Login' 
+    Lable='LOGIN' 
     placeholderUsername='Username' 
     placeholderPwd='Password' 
     Que="Don't Have an account?" 

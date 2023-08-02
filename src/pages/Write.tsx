@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const inputStyle = 'w-full p-2 my-2 border-[1px] border-gray-500 outline-none placeholder-gray-500 rounded-md'
 const btnStyle = 'border-[1px] rounded border-gray-500 p-1 mr-2 hover:text-primary-100 hover:bg-gray-500'
 
-const Category = ['Art','Science','Technology','Cinema','Design','Food']
+const Category = ['Art','Science','Technology','Cinema','Politics','Food']
 
 type Props = {
   catName:string
@@ -115,9 +115,7 @@ const Write:any = () => {
     <div className={`${setTheme() && 'text-white'} md:flex justify-between md:mx-0 mx-5 mt-5 md:h-[470px]`}>
       <div className="w-[100%] mr-5">
         <input type="text"  className={`${inputStyle} ${setTheme() && 'text-gray-500'}`} value={title} placeholder='Title' onChange={e=>setTitle(e.target.value)} />
-        <div className=' border-[1px] border-gray-500 overflow-y-scroll'>
-          <ReactQuill className='h-[400px]' theme='snow' value={value} onChange={setValue} />
-        </div>
+        <ReactQuill className='border-[1px] border-gray-500 w-full  pb-[66px] md:pb-[44px] h-[400px]' theme='snow' value={value} onChange={setValue} />
       </div>
 
       <div className="menu md:w-[30%]">

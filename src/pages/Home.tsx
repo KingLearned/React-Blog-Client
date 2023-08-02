@@ -11,7 +11,7 @@ import { setPostLikes } from '@/shared/setPostLikes';
 import ImagePath from '@/shared/cloudImg';
 
 const Home = () => {
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  window.scrollTo({ top: 0, left: 0 })
   const [posts,setPosts] = useState([])
 
   setPostLikes(posts) //HANDLE THE POST LIKES FROM THE LOCAL STORAGE
@@ -61,7 +61,7 @@ const Home = () => {
 
   return (
     <div className={`mt-5 ${setTheme() && 'text-white'}`}>
-      <div className='md:mx-20 mx-10 mt-5 min-h-[75vh]' key={12}>
+      <div className='md:mx-20 mx-3 mt-5 min-h-[75vh]' key={12}>
         {posts.length > 0 ? 
         
           posts.map((post:postInterface) => (

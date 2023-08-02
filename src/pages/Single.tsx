@@ -67,7 +67,7 @@ const Single = () => {
   }
 
   return ( 
-    <div className={` min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-10 ${setTheme() && 'text-white'}`}>  
+    <div className={` min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-3 ${setTheme() && 'text-white'}`}>  
       {post.length > 0 ? 
         <div className='md:w-[50%] '>
           <div className='mb-2.5 '>

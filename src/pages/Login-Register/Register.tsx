@@ -5,11 +5,11 @@ import Form from './Form'
 const Register = () => {
   return (
     <Form 
-    Lable='Register' 
+    Lable='REGISTER' 
     placeholderUsername='Username' 
     placeholderPwd='Password' 
     needEmail Que='Have an account?' 
-    navTo='login' 
+    navTo='Login' 
     Btn='Register' />
   )
 }
