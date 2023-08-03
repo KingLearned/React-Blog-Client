@@ -73,9 +73,11 @@ const Write:any = () => {
   const [errMsg,setErrMsg] = useState('')
   const handleSubmit = async (e:any) => {
     e.preventDefault()
-    if(!title) return setErrMsg('No post title')
-    if(!value) return setErrMsg('No written article')
-    if(!cat) return setErrMsg('No category selected')
+
+    if(!postImg) return setErrMsg('No Image Selected'), setTimeout(() => {setErrMsg('')},3000)
+    if(!title) return setErrMsg('No post title'), setTimeout(() => {setErrMsg('')},3000)
+    if(!value) return setErrMsg('No written article'), setTimeout(() => {setErrMsg('')},3000)
+    if(!cat) return setErrMsg('No category selected'), setTimeout(() => {setErrMsg('')},3000)
     
     
     const imgUrl = !state &&  await upload()

@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import userimage from '@/assets/userimg.jpg'
 import ImagePath from '@/shared/cloudImg'
+import { Xicon } from '@/components/useimg'
 
 
 const edits = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
@@ -23,6 +24,8 @@ const Single = () => {
   const navigate = useNavigate()
   const Location = useLocation()
   const postId = Location.pathname.split("/")[2]
+
+  const [Interact,setInteract] = useState<boolean>()
   
   const { currentUser } = useContext(AuthContext)
   
@@ -66,18 +69,32 @@ const Single = () => {
     )
   }
 
+  const PostInteraction = (
+    <div className="md:w-[91%] w-full h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-[99] -mt-5">
+        <div className="relative h-1/2 bg-white  md:w-1/2 w-[80%] p-10 rounded-md flex flex-col items-center justify-center z-99">
+            <button className="font-bold absolute top-2 right-2" onClick={() => {setInteract(false)}}>X</button>
+            <img className="w-10" src={Xicon} alt={Xicon} />
+            <h1 className="font-bold my-5 text-center">Hey, 👋 register or login to interact.</h1>
+            <button className="font-bold text-white p-3 bg-gray-400 rounded-xl"><a href="/login">Click here to Register</a></button>
+            <p className="mt-3 text-center text-xs">This blog is powered by <a className="font-bold" href="https://cloudflare.com" target="_blanck">Cloudflare</a>. to interact with the contents on this blog, please login by clicking the button above.</p>
+        </div>
+    </div>
+  )
+
   return ( 
-    <div className={` min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-3 ${setTheme() && 'text-white'}`}>  
+    <div className={`relative min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-3`}>  
+    {Interact && PostInteraction}
       {post.length > 0 ? 
         <div className='md:w-[50%] '>
+          <h1 className={`font-bold text-[35px] ${setTheme() && 'text-white'}`}>{post[0].title}</h1>
           <div className='mb-2.5 '>
             <img className='md:max-h-[350px] h-[380px] w-full' src={ImagePath(post[0].img)} alt={post[0].img} />
           </div>
-          <div className='flex justify-between my-5 shadow-md p-5 rounded-md'>
+          <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${setTheme() && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
             <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center mb-3">
             <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
             <div className="mx-2">
               <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
@@ -96,8 +113,7 @@ const Single = () => {
           </div>
 
           <div>
-            <h1 className='font-bold text-[30px]'>{post[0].title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
+            <div className={`${setTheme() && 'text-gray-50'}`} dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
         </div>
         :
         showSkeleton()
