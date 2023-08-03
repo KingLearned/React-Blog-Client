@@ -15,7 +15,7 @@ import { AuthContext } from '@/contexts/authContext';
 import { Xicon } from '@/components/useimg';
 
 const Home = () => {
-  window.scrollTo({ top: 0, left: 0 })
+  // window.scrollTo({ top: 0, left: 0 })
   const [posts,setPosts] = useState([])
   setPostLikes(posts) //HANDLE THE POST LIKES FROM THE LOCAL STORAGE
   
@@ -29,6 +29,7 @@ const Home = () => {
     const source = axios.CancelToken.source()
     const fetchData = async () => {
       try{
+        window.scrollTo({ top: 0, left: 0 })
         const res = await axios.get(`${Proxy}/posts${category}`, {cancelToken: source.token})
         setPosts(res.data) // Push the data into the "POSTS" Array
       }catch(err){
