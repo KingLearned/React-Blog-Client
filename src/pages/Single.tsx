@@ -70,7 +70,7 @@ const Single = () => {
   }
 
   const PostInteraction = (
-    <div className={` ${Interact ? 'block' : 'hidden'}  md:w-[91%] md:left-[60px] left-0 h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-[99] -mt-5`}>
+    <div className={` ${Interact ? 'block' : 'hidden'}  md:w-[100%] left-0 h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-[99] -mt-5`}>
       <div className="relative h-1/2 bg-white  md:w-1/2 w-[80%] p-10 rounded-md flex flex-col items-center justify-center">
           <button className="font-bold absolute top-2 right-2" onClick={() => {setInteract(false)}}>X</button>
           <img className="w-10" src={Xicon} alt={Xicon} />
@@ -85,9 +85,9 @@ const Single = () => {
     <div className={`relative min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-3`}>  
     
       {post.length > 0 ? 
-        <div className='md:w-[50%] '>
+        <div className='md:w-[60%] '>
           {PostInteraction}
-          
+
           <h1 className={`font-bold text-[35px] ${setTheme() && 'text-white'}`}>{post[0].title}</h1>
           <div className='mb-2.5 '>
             <img className='md:max-h-[350px] h-[380px] w-full' src={ImagePath(post[0].img)} alt={post[0].img} />

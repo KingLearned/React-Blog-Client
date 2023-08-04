@@ -59,7 +59,7 @@ const App = () => {
     const setTheme = () => {  return localStorage.getItem('theme') }
     return (
         <div className={`app ${setTheme() ? 'bg-black' :''}`}>
-            <div className={`md:mx-[60px] `}>
+            <div className={``}>
                 <RouterProvider router={router} />
             </div>
         </div>

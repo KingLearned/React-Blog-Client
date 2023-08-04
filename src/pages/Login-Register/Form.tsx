@@ -20,6 +20,7 @@ type Props = {
 
 const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, navTo, Btn }:Props ) => {
 
+  const setTheme = () => { return localStorage.getItem('theme') }
   const [err,setError] = useState('')
   const navigate = useNavigate()
 
@@ -78,7 +79,7 @@ const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, nav
     <>
     <Navbar />
     <div className={`h-[88vh] ${justfyCenter} mx-5`}>
-      <h1 className='font-[900] text-[20px] my-3'>{Lable}</h1>
+      <h1 className={`font-[900] text-[20px] my-3 ${setTheme() && 'text-white'}`}>{Lable}</h1>
       <form className={`${justfyCenter} bg-primary-500 p-5 w-full sm:w-[70%] md:w-[40%]  rounded-md`} action="">
         <input type="text" name='username' className={inputStyle} placeholder={placeholderUsername} onChange={handleChange} />
         {needEmail && <input type="email" name='email' className={inputStyle} placeholder='Email' onChange={handleChange} />}

@@ -61,7 +61,7 @@ const Home = () => {
   }
 
   const PostInteraction = (
-    <div className="md:w-[91%] w-full h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-99 -mt-5">
+    <div className="w-full h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-99 -mt-5">
         <div className="relative h-1/2 bg-white  md:w-1/2 w-[80%] p-10 rounded-md flex flex-col items-center justify-center">
             <button className="font-bold absolute top-2 right-2" onClick={() => {setInteract(false)}}>X</button>
             <img className="w-10" src={Xicon} alt={Xicon} />
@@ -75,7 +75,7 @@ const Home = () => {
   return (
     <div className={`mt-5 relative`}>
       {Interact && PostInteraction}
-      <div className='md:mx-20 mx-3 mt-5 min-h-[75vh] -z-10' key={12}>
+      <div className='md:mx-10 mx-3 mt-5 min-h-[75vh] -z-10' key={12}>
         {posts.length > 0 ? 
         
           posts.map((post:postInterface) => (

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
+    "appwrite": "^11.0.0",
     "axios": "^1.4.0",
     "framer-motion": "^7.10.3",
     "moment": "^2.29.4",

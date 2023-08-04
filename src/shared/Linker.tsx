@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom'
-
 
 
 type Props = {
@@ -16,7 +14,7 @@ const Linker = ({ page }: Props) => {
     const makeActive = currentLink === lowerCasePage ? "text-primary-500" : 'hover:text-white'
 
     return (
-        <Link className={`${makeActive} transition duration-100`} to={`/?cat=${lowerCasePage}`} >
+        <Link className={`${makeActive} ${'my-[3px]'} transition duration-100`} to={`/?cat=${lowerCasePage}`} >
             {page}
         </Link>
     );

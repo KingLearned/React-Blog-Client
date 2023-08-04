@@ -19,12 +19,11 @@ const Navbar = () => {
   useEffect(() => {
     if(Location.search !== ''){
       return setIsMenuToggled(false)
-      // return console.log(Location.search)
     }
   },[Location.search])
 
   const logOutBtn = <span className='flex' onClick={logout} ><ArrowLeftOnRectangleIcon className="w-[25px]" /> Logout</span>
-  const logInBtn = <Link to='login' className='flex'><ArrowRightOnRectangleIcon className="w-[25px]" /> Login</Link>
+  const logInBtn = <Link to='/login' className='flex'><ArrowRightOnRectangleIcon className="w-[25px]" />Login</Link>
   const btnStyle = `cursor-pointer rounded-3xl px-2 py-1 ${currentUser ? 'text-black bg-secondary-500' : 'text-white bg-gray-400'}`
   
   return (
@@ -43,7 +42,7 @@ const Navbar = () => {
 
           <span className={`${currentUser && 'cursor-pointer'} flex`}><UserIcon className='w-[25px]'/>{currentUser? currentUser.username : 'Guest'}</span>
           <Themes />
-          <span className={`${btnStyle} py-1.5`}>{currentUser? logOutBtn : logInBtn}</span>
+          <span className={`${btnStyle} py-1.5`} >{currentUser? logOutBtn : logInBtn}</span>
           {currentUser && (
             <span className='cursor-pointer bg-primary-500 font-[200] px-2 py-3.5 rounded-[100%] hover:bg-transparent hover:border-primary-500 border-[1px] hover:text-primary-500'>
               <Link to='/write'>Write</Link>
@@ -64,7 +63,7 @@ const Navbar = () => {
         )}
       </div>
       {!isAboveMediumScreens && isMenuToggled && (
-      <div className='flex flex-col shadow-lg rounded-md gap-1 bg-gray-100 py-2 w-[50%] absolute z-50 right-0 pl-10'>
+      <div className='flex flex-col shadow-lg rounded-md gap-1 bg-gray-100 py-2 w-[60%] absolute z-50 right-0 pl-10'>
         {NavLinks.map(each => (
           <Linker page={each} key={each}/>
         ))}

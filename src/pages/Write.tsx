@@ -18,10 +18,9 @@ type Props = {
 }
 
 
-
-
 const Write:any = () => {
   const state = useLocation().state
+  
   
   const navigate = useNavigate()
   const { currentUser }:any = useContext(AuthContext)
