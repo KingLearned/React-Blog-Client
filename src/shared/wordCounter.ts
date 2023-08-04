@@ -1,11 +1,11 @@
 const wordCount = (words:string) => {
     const arr = words.split(' ')
     let fewWords = ''
-    arr.map(eachWord => {
-        if(arr.indexOf(eachWord as never) < 20){
-            fewWords += `${eachWord} `
+    for (let i = 0; i < arr.length; i++) {
+        if(i < 30){
+            fewWords += `${arr[i]} `
         }
-    })
+    }
     return fewWords
 }
 

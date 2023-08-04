@@ -72,6 +72,7 @@ const Home = () => {
     </div>
   )
 
+
   return (
     <div className={`mt-5 relative`}>
       {Interact && PostInteraction}
@@ -88,7 +89,7 @@ const Home = () => {
               <div className='md:w-[60%] md:px-10'>
                 <h1 className={`${setTheme() && 'text-white'} md:text-[45px] text-[25px] font-bold`}>{post.title}</h1>
                 <p className={` ${setTheme() && 'text-gray-100'}`}> {wordCount(plainText(post.descrp))}. . .</p> 
-
+                
                 <Link to={`/post/${post.postId}`}>
                   <button className='border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
                     Read More
