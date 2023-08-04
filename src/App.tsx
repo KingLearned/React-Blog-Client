@@ -18,7 +18,6 @@ const Layout = () => {
     )
 }
 
-
 const router = createBrowserRouter([
     {
         path: "/",
@@ -53,7 +52,6 @@ const router = createBrowserRouter([
     },
 ])
 
-
 const App = () => {
 
     const setTheme = () => {  return localStorage.getItem('theme') }
@@ -66,7 +64,5 @@ const App = () => {
     )
 
 }
-
-
 
 export default App

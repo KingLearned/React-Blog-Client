@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react"
-import { setKey } from "./defineTypes"
 !localStorage.getItem('theme') ? localStorage.setItem('theme', '') : ''
 const getTheme = `${localStorage.getItem('theme')}`
 
 
+
 const Themes = () => {
     const [goDark, setGoDark] = useState<string>()
-    useEffect(() => {
-        setGoDark(getTheme) 
-    },[])
     goDark ? localStorage.setItem('theme', 'true') : localStorage.setItem('theme', '')
+
+    useEffect(() => {
+        setGoDark(getTheme)
+    },[])
     
   return (
         <div className="w-[45px] rounded-full bg-gray-50 grid">
             {!goDark ?
                 <svg id="theme-toggle-dark-icon"
-                onClick={() => (setGoDark('True'),setKey())}
+                onClick={() => (setGoDark('True'), window.location.reload())}
                     className="h-6 w-6 p-1 m-0.5 rounded-full cursor-pointer bg-white text-white"
                     fill="currentColor"
                     strokeWidth={1.5}
@@ -26,7 +27,7 @@ const Themes = () => {
                 </svg>
                 :
                 <svg id="theme-toggle-light-icon" 
-                    onClick={() => (setGoDark(''),setKey())}
+                    onClick={() => (setGoDark(''), window.location.reload())}
                     className={`h-6 w-6 p-1 m-0.5 rounded-full ${goDark && 'justify-self-end'} cursor-pointer bg-white text-white`}
                     fill="currentColor"
                     strokeWidth={1.5}

@@ -1,6 +1,6 @@
 import Proxy from '@/shared/Proxy';
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import 'react-quill/dist/quill.snow.css'
 import { plainText, postInterface } from '@/shared/defineTypes';
@@ -75,19 +75,19 @@ const Home = () => {
   return (
     <div className={`mt-5 relative`}>
       {Interact && PostInteraction}
-      <div className='md:mx-10 mx-3 mt-5 min-h-[75vh] -z-10' key={12}>
+      <div className='homeclass md:mx-10 mx-3 mt-5 min-h-[75vh] -z-10' key={12}>
         {posts.length > 0 ? 
         
           posts.map((post:postInterface) => (
             <div className={` border-b-[1px] border-gray-500 md:flex pb-8 mb-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
               <div className={`md:mx-10 md:w-[50%]  mb-3`}>
-                  <img className='w-full h-[350px]' src={ImagePath(post.img)} alt={post.img} />
+                  <img className='w-full h-[450px]' src={ImagePath(post.img)} alt={post.img} />
               </div>
 
               <div className='md:w-[60%] md:px-10'>
                 <h1 className={`${setTheme() && 'text-white'} md:text-[45px] text-[25px] font-bold`}>{post.title}</h1>
-                <p className={`${setTheme() && 'text-gray-100'}`}> {wordCount(plainText(post.descrp))}. . .</p> 
+                <p className={` ${setTheme() && 'text-gray-100'}`}> {wordCount(plainText(post.descrp))}. . .</p> 
 
                 <Link to={`/post/${post.postId}`}>
                   <button className='border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>

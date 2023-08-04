@@ -73,13 +73,15 @@ const Write:any = () => {
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
-    if(!postImg) return setErrMsg('No Image Selected'), setTimeout(() => {setErrMsg('')},3000)
+    if(!state){
+      if(!postImg) return setErrMsg('No Image Selected'), setTimeout(() => {setErrMsg('')},3000)
+    }
     if(!title) return setErrMsg('No post title'), setTimeout(() => {setErrMsg('')},3000)
     if(!value) return setErrMsg('No written article'), setTimeout(() => {setErrMsg('')},3000)
     if(!cat) return setErrMsg('No category selected'), setTimeout(() => {setErrMsg('')},3000)
     
-    
     const imgUrl = !state &&  await upload()
+
     try{
       // UPDATING OF AN EXISTING POST
       state ? (await axios.put(`${Proxy}/posts/${state.postId}`, {
@@ -113,7 +115,7 @@ const Write:any = () => {
   }
 
   return  currentUser ?  
-    <div className={`${setTheme() && 'text-white'} md:flex justify-between md:mx-0 mx-5 mt-5 md:h-[470px]`}>
+    <div className={`${setTheme() && 'text-white'} md:flex justify-between mx-5 mt-5 md:h-[470px]`}>
       <div className="w-[100%] mr-5">
         <input type="text"  className={`${inputStyle} ${setTheme() && 'text-gray-500'}`} value={title} placeholder='Title' onChange={e=>setTitle(e.target.value)} />
         <ReactQuill className='border-[1px] border-gray-500 w-full  pb-[66px] md:pb-[44px] h-[400px]' theme='snow' value={value} onChange={setValue} />

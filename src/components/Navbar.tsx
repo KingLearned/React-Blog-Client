@@ -7,15 +7,20 @@ import Linker from '@/shared/Linker'
 import Themes from '@/shared/Themes'
 import { Logo } from './useimg'
 
+
+
+
 const Navbar = () => {
 
   const Location = useLocation()
   const NavLinks = ['ART','SCIENCE','TECHNOLOGY','CINEMA','POLITICS','FOOD']
+
   
   const { currentUser, logout } = useContext(AuthContext)
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false)
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-  
+
+
   useEffect(() => {
     if(Location.search !== ''){
       return setIsMenuToggled(false)
