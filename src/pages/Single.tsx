@@ -31,6 +31,7 @@ const Single = () => {
 
   const source = axios.CancelToken.source()
   useEffect(() => {
+
     const fetchData = async () => {
       try{
         window.scrollTo({ top: 0, left: 0})
@@ -51,6 +52,8 @@ const Single = () => {
       console.log(err)
     }
   }
+
+
 
   const setTheme = () => { return localStorage.getItem('theme') }
 
@@ -100,7 +103,7 @@ const Single = () => {
             <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
             <div className="mx-2">
               <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
-              <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {`${moment(post[0].date).fromNow(true)} ago`}</p>
+              <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {`${moment((post[0].date.substring(0, 19)).replace('T', ' ')).fromNow(false)}`}</p>
             </div>
             {currentUser?.username === post[0].username && 
             <>
