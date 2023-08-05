@@ -100,7 +100,7 @@ const Single = () => {
             <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
             <div className="mx-2">
               <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
-              <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {moment(post[0].date).fromNow()}</p>
+              <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {`${moment(post[0].date).fromNow(true)} ago`}</p>
             </div>
             {currentUser?.username === post[0].username && 
             <>
