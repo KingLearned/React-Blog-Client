@@ -83,11 +83,11 @@ const Home = () => {
             <div className={` border-b-[1px] border-gray-500 md:flex pb-8 mb-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
               <div className={`md:mx-10 md:w-[50%]  mb-3`}>
-                  <img className='w-full h-[450px]' src={ImagePath(post.img)} alt={post.img} />
+                  <img className='w-full h-[450px] object-cover' src={ImagePath(post.img)} alt={post.img} />
               </div>
 
-              <div className='md:w-[60%] md:px-10'>
-                <h1 className={`${setTheme() && 'text-white'} md:text-[45px] text-[25px] font-bold`}>{post.title}</h1>
+              <div className='md:w-[60%] md:px-10 justify-between flex flex-col'>
+                <h1 className={`${setTheme() && 'text-white'} md:text-[45px] md:leading-[48px] leading-7 text-[25px] font-bold`}>{post.title}</h1>
                 <p className={` ${setTheme() && 'text-gray-100'}`}> {wordCount(plainText(post.descrp))}. . .</p> 
                 
                 <Link to={`/post/${post.postId}`}>
@@ -95,7 +95,7 @@ const Home = () => {
                     Read More
                   </button>
                 </Link>
-                <div onClick={() => {!currentUser && setInteract(true)}} className={`${setTheme() && 'text-white shadow-sm shadow-white'} flex justify-between mt-7 shadow-md p-5 rounded-md`}>
+                <div onClick={() => {!currentUser && setInteract(true)}} className={`${setTheme() && 'text-white shadow-sm shadow-white'} flex justify-between shadow-md p-5 rounded-md`}>
                   <Views /> <Comments /> <Likes postId={post.postId} likes={post.likes} />
                 </div>
               </div>

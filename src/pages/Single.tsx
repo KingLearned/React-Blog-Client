@@ -15,7 +15,7 @@ import ImagePath from '@/shared/cloudImg'
 import { Xicon } from '@/components/useimg'
 
 
-const edits = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
+const doStyle = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
 
 const Single = () => {
   const [post,setPost] = useState<singlePostInterface[]>([])
@@ -33,7 +33,7 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        window.scrollTo({ top: 0, left: 0})
+        // window.scrollTo({ top: 0, left: 0})
         const res = await axios.get(`${Proxy}/posts/${postId}`, {cancelToken: source.token})
         setPost([res.data]) // Push the data into the "POSTS" Array
 
@@ -44,7 +44,7 @@ const Single = () => {
 
   const handleDelete = async () => {
     try{
-      await axios.delete(`${Proxy}/posts/${postId}`, {cancelToken: source.token})
+      const res = await axios.delete(`${Proxy}/posts/${postId}`, {cancelToken: source.token})
       navigate("/") 
 
     }catch(err){
@@ -88,9 +88,9 @@ const Single = () => {
         <div className='md:w-[60%] '>
           {PostInteraction}
 
-          <h1 className={`font-bold text-[35px] ${setTheme() && 'text-white'}`}>{post[0].title}</h1>
-          <div className='mb-2.5 '>
-            <img className='md:max-h-[350px] h-[380px] w-full' src={ImagePath(post[0].img)} alt={post[0].img} />
+          <h1 className={`font-bold text-[35px] md:leading-[48px] leading-9 ${setTheme() && 'text-white'}`}>{post[0].title}</h1>
+          <div className='my-4'>
+            <img className='md:h-[400px] h-[330px] object-cover w-full' src={ImagePath(post[0].img)} alt={post[0].img} />
           </div>
           <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${setTheme() && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
             <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
@@ -104,11 +104,11 @@ const Single = () => {
             </div>
             {currentUser?.username === post[0].username && 
             <>
-              <Link className={`${edits} bg-green-blue`} to={`/write?edit=${post[0].postId}`} state={post[0]}>
+              <Link className={`${doStyle} bg-green-blue`} title='Edit Post' to={`/write?edit=${post[0].postId}`} state={post[0]}>
                 <PencilIcon />
               </Link>
-              <Link className={`${edits} bg-primary-500`} to={`/write?edit=2`}>
-                <TrashIcon />
+              <Link className={`${doStyle} bg-primary-500`} title='Delete Post' to={''} >
+                <TrashIcon onClick={handleDelete} />
               </Link>
             </>
             }
