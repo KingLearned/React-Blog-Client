@@ -33,7 +33,7 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        // window.scrollTo({ top: 0, left: 0})
+        window.scrollTo({ top: 0, left: 0})
         const res = await axios.get(`${Proxy}/posts/${postId}`, {cancelToken: source.token})
         setPost([res.data]) // Push the data into the "POSTS" Array
 
