@@ -134,7 +134,7 @@ const Write:any = () => {
 
           <input type="file" id='newsImg' name='newsImg' hidden onChange={handImgChange} />
 
-          <label htmlFor="newsImg" className="flex cursor-pointer">Upload <PhotoIcon className='w-[25px]' /></label>
+          <label htmlFor="newsImg" className="flex cursor-pointer font-bold w-[100px]">Upload <PhotoIcon className='w-[25px]' /></label>
           <div className='mt-5 flex justify-between'>
             <button className={`${btnStyle}`}>Save as draft</button>
             <button className={`${btnStyle} bg-secondary-500`} onClick={handleSubmit}>Publish</button>
