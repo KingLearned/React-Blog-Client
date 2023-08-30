@@ -1,6 +1,17 @@
+import { useContext, useEffect } from 'react'
 import Form from './Form'
+import { AuthContext } from '@/contexts/authContext'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const { currentUser }:any = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(currentUser){
+      navigate('/')
+    }
+  })
 
   return (
     <Form 

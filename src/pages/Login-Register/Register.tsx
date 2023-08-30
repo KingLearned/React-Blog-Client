@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Form from './Form'
+import { AuthContext } from '@/contexts/authContext'
+import { useNavigate } from 'react-router-dom'
 
 
 const Register = () => {
+  const { currentUser }:any = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(currentUser){
+      navigate('/')
+    }
+  })
+
   return (
     <Form 
     Lable='REGISTER' 

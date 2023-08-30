@@ -31,6 +31,9 @@ const Write:any = () => {
   const [cat, setCat] = useState('')
 
   useEffect(() => {
+    if(!currentUser){
+      navigate('/')
+    }
     setTitle(state?.title || '')
     setValue(state?.descrp || '')
     setCat(state?.cat || '')
@@ -114,7 +117,7 @@ const Write:any = () => {
     )
   }
 
-  return  currentUser ?  
+  return( 
     <div className={`${setTheme() && 'text-white'} md:flex justify-between mx-5 mt-5 md:h-[470px]`}>
       <div className="w-[100%] mr-5">
         <input type="text"  className={`${inputStyle} ${setTheme() && 'text-gray-500'}`} value={title} placeholder='Title' onChange={e=>setTitle(e.target.value)} />
@@ -149,8 +152,8 @@ const Write:any = () => {
           ))}
         </div>
       </div>
-    </div>:
-    navigate('/')
+    </div>
+  )
   
 }
 
