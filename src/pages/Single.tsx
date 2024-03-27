@@ -93,7 +93,7 @@ const Single = () => {
 
           <h1 className={`font-bold text-[35px] md:leading-[48px] leading-9 ${setTheme() && 'text-white'}`}>{post[0].title}</h1>
           <div className='my-4'>
-            <img className='md:h-[400px] h-[330px] object-cover w-full' src={ImagePath(post[0].img)} alt={post[0].img} />
+            <img className='md:h-[400px] h-[330px] object-cover w-full' src={post[0].img} alt={post[0].img} />
           </div>
           <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${setTheme() && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
             <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />

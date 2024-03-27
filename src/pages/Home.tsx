@@ -83,7 +83,7 @@ const Home = () => {
             <div className={` border-b-[1px] border-gray-500 md:flex pb-8 mb-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
               <div className={`md:mx-10 md:w-[50%]  mb-3`}>
-                  <img className='w-full h-[450px] object-cover' src={ImagePath(post.img)} alt={post.img} />
+                  <img className='w-full h-[450px] object-cover' src={post.img} alt={post.img} />
               </div>
 
               <div className='md:w-[60%] md:px-10 justify-between flex flex-col'>

@@ -29,6 +29,7 @@ const Write:any = () => {
   const [title, setTitle] = useState('')
   const [postImg, setPostImg] = useState('')
   const [cat, setCat] = useState('')
+  const [errMsg,setErrMsg] = useState('')
 
   useEffect(() => {
     if(!currentUser){
@@ -40,24 +41,19 @@ const Write:any = () => {
   }, [state])
 
   //IMAGE INSTANT PREVIEWER
-  const [imgcache,setImgcache] = useState('')
+  const [imgcache,setImgcache] = useState<any>()
 
   const handImgChange = (e:any) => {
     const cacheImg = e.target.files[0]
-    setPostImg(e.target.files[0])
+    setPostImg(cacheImg)
 
-    const cacheUpload = async () => {
-      try{
-        const formData = new FormData()
-        formData.append('cache', cacheImg)
-        const res = await axios.post(`${Proxy}/imgpreview`, formData)
-        return setImgcache(res.data)
-
-      }catch(err){
-        console.log(err)
-      }
+    if (cacheImg) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImgcache(reader.result)
+      };
+      reader.readAsDataURL(cacheImg)
     }
-    cacheUpload()
   }
 
   // FOR UPLOADING OF NEW IMAGE
@@ -66,13 +62,13 @@ const Write:any = () => {
       const formData = new FormData()
       formData.append('mainImg', postImg)
       const res = await axios.post(`${Proxy}/upload`, formData)
-      return res.data
+      return `https://cloud.appwrite.io/v1/storage/buckets/64c899ada58fb46d6840/files/${res.data}/view?project=64c7e9ee17c84cabe3cd&mode=admin`
+
     }catch(err){
       console.log(err)
     }
   }
   
-  const [errMsg,setErrMsg] = useState('')
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
@@ -87,17 +83,20 @@ const Write:any = () => {
 
     try{
       // UPDATING OF AN EXISTING POST
-      state ? (await axios.put(`${Proxy}/posts/${state.postId}`, {
-        title:title, descrp:value, cat:cat, img: state ? state.img : imgUrl, userId:currentUser.secureToken
-      }),
-      navigate(`/?cat=${cat}`) 
+      state ? (
+        await axios.put(`${Proxy}/posts/${state.postId}`, {
+          title:title, descrp:value, cat:cat, img: state ? state.img : imgUrl, userId:currentUser.secureToken
+        }),
+        navigate(`/?cat=${cat}`) 
       )
       :
       //WRITING OF NEW POST
-      (await axios.post(`${Proxy}/posts/`, {
-        title:title, descrp:value, cat:cat, img: imgUrl, date:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), userId:currentUser.Id  
-      }),
-      navigate(`/?cat=${cat}`))
+      (
+        await axios.post(`${Proxy}/posts/`, {
+          title:title, descrp:value, cat:cat, img: imgUrl, date:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), userId:currentUser.Id  
+        }),
+        navigate(`/?cat=${cat}`)
+      )
     } catch(err){
       console.log(err)
     }
@@ -118,26 +117,28 @@ const Write:any = () => {
   }
 
   return( 
-    <div className={`${setTheme() && 'text-white'} md:flex justify-between mx-5 mt-5 md:h-[470px]`}>
+    <div className={`${setTheme() && 'text-white'} md:flex justify-between mx-5 mt-5 h-[85vh] relative`}>
       <div className="w-[100%] mr-5">
         <input type="text"  className={`${inputStyle} ${setTheme() && 'text-gray-500'}`} value={title} placeholder='Title' onChange={e=>setTitle(e.target.value)} />
-        <ReactQuill className='border-[1px] border-gray-500 w-full  pb-[66px] md:pb-[44px] h-[400px]' theme='snow' value={value} onChange={setValue} />
+        <ReactQuill className='border-[1px] border-gray-500 w-full  pb-[66px] md:pb-[44px] h-4/5' theme='snow' value={value} onChange={setValue} />
       </div>
 
       <div className="menu md:w-[30%]">
-        <div className="border-[1px] border-gray-500 mt-2.5 p-3 h-[44%] flex flex-col relative">
+        <div className="border-[1px] border-gray-500 mt-2.5 p-3 h-auto flex flex-col relative">
 
+          <input type="file" id='newsImg' name='newsImg' hidden onChange={handImgChange} />
           <div className=' h-[100px] w-[35%] border-[1px] border-gray-500 absolute rounded-md right-5'>
-            {imgcache && <img className="h-full w-full" src={`https://cloud.appwrite.io/v1/storage/buckets/cacheBucket/files/${imgcache}/view?project=64c7e9ee17c84cabe3cd&mode=admin`} alt={imgcache} />}
+            {imgcache &&
+              <img className="h-full w-full" src={`${imgcache}`} alt={imgcache} />
+            }
           </div>
 
           <h1 className='font-bold text-2xl'>Publish</h1>
           <span><b>Status: </b> Draft</span>
           <span><b>Visibility: </b> Public</span>
+          <label htmlFor="newsImg" className="flex cursor-pointer font-bold w-[100px]">Change <PhotoIcon className='w-[25px]' /></label>
 
-          <input type="file" id='newsImg' name='newsImg' hidden onChange={handImgChange} />
 
-          <label htmlFor="newsImg" className="flex cursor-pointer font-bold w-[100px]">Upload <PhotoIcon className='w-[25px]' /></label>
           <div className='mt-5 flex justify-between'>
             <button className={`${btnStyle}`}>Save as draft</button>
             <button className={`${btnStyle} bg-secondary-500`} onClick={handleSubmit}>Publish</button>
@@ -145,7 +146,7 @@ const Write:any = () => {
           <p className='font-bold mt-1'>{errMsg && `Error: ${errMsg}`}</p>
         </div>
 
-        <div className="border-[1px] border-gray-500 my-5 p-3 h-[44%]" >
+        <div className="border-[1px] border-gray-500 my-5 p-3 h-auto" >
           <h1 className='font-bold text-2xl'>Category</h1>
           {Category.map((eachCat) => (
             <ListCat catName={eachCat} key={eachCat} />

@@ -19,18 +19,16 @@ const Likes = ({postId, likes}:Props) => {
         currentUser && setNewLikes(likes)
     },[likes])
 
-    
     const updateLikes = async (likeNumber:number) => {
       try{
           const res = currentUser && await axios.put(`${Proxy}/posts/likes/${postId}`, {currentLikes: likeNumber})
-          console.log(res.data)
         } catch(err){
           console.log(err)
         }
     }
 
   return (
-    <div className='flex '>{newLikes}<HeartIcon onClick={() => 
+    <div className='flex '>{newLikes == null ? 0 : newLikes}<HeartIcon onClick={() => 
       { currentUser &&
         (handleLike(postId) 
         ? 

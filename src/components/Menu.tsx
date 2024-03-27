@@ -67,7 +67,7 @@ const Menu = ({ category, mainNews }:Props) => {
                 <div className={`relative mb-10`} key={post.postId}>
                     <h1 className={`text-2xl mb-3 font-bold ${setTheme() && 'text-white'}`}>{post.title}</h1>
                     <div className={`w-full mb-3`}>
-                        <img className="w-full h-[250px]" src={ImagePath(post.img)} alt={post.img} />
+                        <img className="w-full h-[250px]" src={post.img} alt={post.img} />
                     </div>
                     <div>
                         <p className={`${setTheme() && 'text-gray-50'}`}> {wordCount(plainText(post.descrp))}. . .</p> 
