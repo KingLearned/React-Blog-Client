@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { AuthContext } from '@/contexts/authContext'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import { ArrowLeftOnRectangleIcon, XMarkIcon, ArrowRightOnRectangleIcon, UserIcon, Bars3Icon } from '@heroicons/react/24/solid'
+import { ArrowLeftOnRectangleIcon, XMarkIcon, ArrowRightOnRectangleIcon, UserIcon, Bars3Icon, ArrowRightEndOnRectangleIcon, ArrowLeftEndOnRectangleIcon } from '@heroicons/react/24/solid'
 import Linker from '@/shared/Linker'
 import Themes from '@/shared/Themes'
 import { Logo } from './useimg'
@@ -13,7 +13,7 @@ import { Logo } from './useimg'
 const Navbar = () => {
 
   const Location = useLocation()
-  const NavLinks = ['ART','SCIENCE','TECHNOLOGY','CINEMA','POLITICS','FOOD']
+  const NavLinks = ['POLITICS', 'BUSINESS', 'SPORTS', 'NATIONAL', 'EDUCATION']
 
   
   const { currentUser, logout } = useContext(AuthContext)
@@ -27,8 +27,8 @@ const Navbar = () => {
     }
   },[Location.search])
 
-  const logOutBtn = <span className='flex' onClick={logout} ><ArrowLeftOnRectangleIcon className="w-[25px]" /> Logout</span>
-  const logInBtn = <Link to='/login' className='flex'><ArrowRightOnRectangleIcon className="w-[25px]" />Login</Link>
+  const logOutBtn = <span className='flex' onClick={logout} ><ArrowLeftEndOnRectangleIcon className="w-[25px]" /> Logout</span>
+  const logInBtn = <Link to='/login' className='flex'><ArrowRightEndOnRectangleIcon className="w-[25px]" />Login</Link>
   const btnStyle = `cursor-pointer rounded-3xl px-2 py-1 ${currentUser ? 'text-black bg-secondary-500' : 'text-white bg-gray-400'}`
   
   return (

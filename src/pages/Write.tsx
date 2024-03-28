@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const inputStyle = 'w-full p-2 my-2 border-[1px] border-gray-500 outline-none placeholder-gray-500 rounded-md'
 const btnStyle = 'border-[1px] rounded border-gray-500 p-1 mr-2 hover:text-primary-100 hover:bg-gray-500'
 
-const Category = ['Art','Science','Technology','Cinema','Politics','Food']
+const Category = ['Politics', 'Business', 'Sports', 'National', 'Education']
 
 type Props = {
   catName:string
@@ -73,19 +73,19 @@ const Write:any = () => {
     e.preventDefault()
 
     if(!state){
-      if(!postImg) return setErrMsg('No Image Selected'), setTimeout(() => {setErrMsg('')},3000)
+      // if(!postImg) return setErrMsg('No Image Selected'), setTimeout(() => {setErrMsg('')},3000)
     }
     if(!title) return setErrMsg('No post title'), setTimeout(() => {setErrMsg('')},3000)
     if(!value) return setErrMsg('No written article'), setTimeout(() => {setErrMsg('')},3000)
     if(!cat) return setErrMsg('No category selected'), setTimeout(() => {setErrMsg('')},3000)
     
-    const imgUrl = !state &&  await upload()
+    // const imgUrl = !state &&  await upload()
 
     try{
       // UPDATING OF AN EXISTING POST
       state ? (
         await axios.put(`${Proxy}/posts/${state.postId}`, {
-          title:title, descrp:value, cat:cat, img: state ? state.img : imgUrl, userId:currentUser.secureToken
+          title:title, descrp:value, cat:cat, img: state ? state.img : 'imgUrl', userId:currentUser.secureToken
         }),
         navigate(`/?cat=${cat}`) 
       )
@@ -93,7 +93,7 @@ const Write:any = () => {
       //WRITING OF NEW POST
       (
         await axios.post(`${Proxy}/posts/`, {
-          title:title, descrp:value, cat:cat, img: imgUrl, date:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), userId:currentUser.Id  
+          title:title, descrp:value, cat:cat, img: 'imgUrl', date:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), userId:currentUser.Id  
         }),
         navigate(`/?cat=${cat}`)
       )
