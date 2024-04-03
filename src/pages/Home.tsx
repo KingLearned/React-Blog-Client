@@ -94,7 +94,7 @@ const Home = () => {
                 </div>
 
                 <div className='md:w-[60%] md:px-10 flex flex-col md:relative'>
-                  <h1 className={`${isTheme && 'text-white'} md:text-[35px] text-justify text-[25px] font-bold`}>{post.title}</h1>
+                  <h1 className={`${isTheme && 'text-white'} md:text-[35px]  text-[25px] font-bold`}>{post.title}</h1>
                   <p className={` ${isTheme && 'text-gray-100'} my-3`}> {wordCount(plainText(post.descrp))}. . .</p> 
                   
                   <Link to={`/post/${post.postId}`}>
