@@ -79,29 +79,23 @@ const Home = () => {
 
 
   return (
-    <div className='h-full'>
+    <div className={`h-full ${isTheme && 'bg-black'}`}>
       <Navbar setTheme={setIsTheme} />
-      <div className={`pb-10 relative min-h-[100vh] ${isTheme && 'bg-black'}`}>
+      <div className={`pb-10 relative min-h-[100vh] `}>
         {Interact && PostInteraction}
-        <div className='md:mx-10 mx-3 mt-5 h-full' key={12}>
+        <div className='md:mx-10 mx-3 h-full' key={12}>
           {posts.length > 0 ? 
           
             posts.map((post:postInterface, index) => (
-              <div className={` ${posts.length !== index+1 && 'border-b-[1px] border-gray-500'} md:h-[450px] md:flex pb-8 mt-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
+              <div className={` ${posts.length !== index+1 && 'border-b-[1px] border-gray-500'} md:flex pb-8 mt-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
-                <div className={`md:mx-10 md:w-[50%]  mb-3`}>
-                    <img className='w-full h-full object-fill' src={post.img} alt={post.img} />
+                <div className={`md:mx-10 md:w-[50%] max-sm:h-[20rem] h-[25rem] mb-3`}>
+                  <img className='w-full h-full object-cover' src={post.img} alt={post.img} />
                 </div>
 
                 <div className='md:w-[60%] md:px-10 flex flex-col md:relative'>
                   <h1 className={`${isTheme && 'text-white'} md:text-[35px]  text-[25px] font-bold`}>{post.title}</h1>
-                  <p className={` ${isTheme && 'text-gray-100'} my-3`}> {wordCount(plainText(post.descrp))}. . .</p> 
-                  
-                  <Link to={`/post/${post.postId}`}>
-                    <button className='border-[1px] rounded border-gray-500 my-3 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
-                      Read More
-                    </button>
-                  </Link>
+                  <p className={` ${isTheme && 'text-gray-100'} my-3`}> {wordCount(plainText(post.descrp))}. . .<br /> <Link to={`/post/${post.postId}`} className='font-extrabold text-gray-500 underline'>Read More...</Link></p> 
 
                   <div onClick={() => {!currentUser && setInteract(true)}} className={`${isTheme && 'text-white shadow-sm shadow-white'} md:absolute md:right-[-5] md:bottom-0 md:w-[90%] flex justify-between shadow-md p-5 mt-4 rounded-md`}>
                     <Views /> <Comments /> <Likes postId={post.postId} likes={post.likes} />
