@@ -66,7 +66,7 @@ const Home = () => {
   }
 
   const PostInteraction = (
-    <div className="w-full h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-99 -mt-5">
+    <div className="w-full h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-[1000] -mt-5">
         <div className="relative h-1/2 bg-white  md:w-1/2 w-[80%] p-10 rounded-md flex flex-col items-center justify-center">
             <button className="font-bold absolute top-2 right-2" onClick={() => {setInteract(false)}}>X</button>
             <img className="w-10" src={Xicon} alt={Xicon} />
