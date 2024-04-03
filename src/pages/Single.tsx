@@ -13,26 +13,30 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import userimage from '@/assets/userimg.jpg'
 import ImagePath from '@/shared/cloudImg'
 import { Xicon } from '@/components/useimg'
+import Navbar from '@/components/Navbar'
 
 
 const doStyle = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
 
 const Single = () => {
-  const [post,setPost] = useState<singlePostInterface[]>([])
-
+  
+  const { currentUser } = useContext(AuthContext)
   const navigate = useNavigate()
   const Location = useLocation()
+
+  const [post,setPost] = useState<singlePostInterface[]>([])
   const postId = Location.pathname.split("/")[2]
 
   const [Interact,setInteract] = useState<boolean>()
+  const [isTheme, setIsTheme] = useState(false);
   
-  const { currentUser } = useContext(AuthContext)
-  
+  const setTheme = () => { return localStorage.getItem('theme') }
 
   const source = axios.CancelToken.source()
   useEffect(() => {
-
+    
     const fetchData = async () => {
+      setIsTheme(localStorage.getItem('theme') ? true : false)
       try{
         window.scrollTo({ top: 0, left: 0})
         const res = await axios.get(`${Proxy}/posts/${postId}`, {cancelToken: source.token})
@@ -41,6 +45,7 @@ const Single = () => {
       }catch(err){ console.log(err) }
     }
     fetchData()
+
   }, [postId])
 
   const handleDelete = async () => {
@@ -53,9 +58,6 @@ const Single = () => {
     }
   }
 
-
-
-  const setTheme = () => { return localStorage.getItem('theme') }
 
   const showSkeleton = () => {
     return (
@@ -85,45 +87,48 @@ const Single = () => {
   )
 
   return ( 
-    <div className={`relative min-h-[100vh] flex md:flex-row flex-col justify-center mt-5 md:mx-0 mx-3`}>  
-    
-      {post.length > 0 ? 
-        <div className='md:w-[60%] '>
-          {PostInteraction}
+    <div>
+      <Navbar setTheme={setIsTheme} />
+      <div className={`relative min-h-[100vh] flex md:flex-row flex-col justify-center py-5 md:mx-0 mx-3 ${isTheme && 'bg-black'}`}>  
+      
+        {post.length > 0 ? 
+          <div className='md:w-[60%] '>
+            {PostInteraction}
 
-          <h1 className={`font-bold text-[35px] md:leading-[48px] leading-9 ${setTheme() && 'text-white'}`}>{post[0].title}</h1>
-          <div className='my-4'>
-            <img className='md:h-[400px] h-[330px] object-cover w-full' src={post[0].img} alt={post[0].img} />
-          </div>
-          <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${setTheme() && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
-            <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
-          </div>
-
-          <div className="flex items-center mb-3">
-            <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
-            <div className="mx-2">
-              <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
-              <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {`${moment((post[0].date.substring(0, 19)).replace('T', ' ')).fromNow(false)}`}</p>
+            <h1 className={`font-bold text-[35px] md:leading-[48px] leading-9 ${isTheme && 'text-white'}`}>{post[0].title}</h1>
+            <div className='my-4'>
+              <img className='md:h-[400px] h-[330px] object-cover w-full' src={post[0].img} alt={post[0].img} />
             </div>
-            {currentUser?.username === post[0].username && 
-            <>
-              <Link className={`${doStyle} bg-green-blue`} title='Edit Post' to={`/write?edit=${post[0].postId}`} state={post[0]}>
-                <PencilIcon />
-              </Link>
-              <Link className={`${doStyle} bg-primary-500`} title='Delete Post' to={''} >
-                <TrashIcon onClick={handleDelete} />
-              </Link>
-            </>
-            }
-          </div>
+            <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${isTheme && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
+              <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
+            </div>
 
-          <div>
-            <div className={`${setTheme() && 'text-gray-50'}`} dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
-        </div>
-        :
-        showSkeleton()
-      }
-    {post.length > 0 ? <Menu category={post[0].cat} mainNews={post[0].postId} /> : <Menu category={''} mainNews={''} />}
+            <div className="flex items-center mb-3">
+              <img className='rounded-full h-[30px] w-[30px]' src={userimage} alt={userimage} />
+              <div className="mx-2">
+                <span className='text-gray-300 font-bold'>Author:</span> <span>{post[0].username}</span>
+                <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {`${moment((post[0].date.substring(0, 19)).replace('T', ' ')).fromNow(false)}`}</p>
+              </div>
+              {currentUser?.username === post[0].username && 
+              <>
+                <Link className={`${doStyle} bg-green-blue`} title='Edit Post' to={`/write?edit=${post[0].postId}`} state={post[0]}>
+                  <PencilIcon />
+                </Link>
+                <Link className={`${doStyle} bg-primary-500`} title='Delete Post' to={''} >
+                  <TrashIcon onClick={handleDelete} />
+                </Link>
+              </>
+              }
+            </div>
+
+            <div>
+              <div className={`${isTheme && 'text-gray-50'}`} dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
+          </div>
+          :
+          showSkeleton()
+        }
+        {post.length > 0 ? <Menu category={post[0].cat} mainNews={post[0].postId} istheme={isTheme} /> : <Menu category={''} mainNews={''} istheme={isTheme} />}
+      </div>
     </div>
   )
 }

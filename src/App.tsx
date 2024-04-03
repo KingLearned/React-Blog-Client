@@ -4,14 +4,12 @@ import Login from './pages/Login-Register/Login'
 import Home from './pages/Home'
 import Single from './pages/Single'
 import Write from './pages/Write'
-import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 const Layout = () => {
 
     return (
         <>
-            <Navbar />
             <Outlet />
             <Footer />
         </>
@@ -41,7 +39,7 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />
     },
-    { path: "/login" , element: <Login />  },
+    { path: "/login" , element: <Login  /> },
     {
         path: "/single",
         element: <Single />
@@ -53,13 +51,9 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-
-    const setTheme = () => {  return localStorage.getItem('theme') }
     return (
-        <div className={`app ${setTheme() ? 'bg-black' :''}`}>
-            <div className={``}>
-                <RouterProvider router={router} />
-            </div>
+        <div >
+            <RouterProvider router={router} />
         </div>
     )
 

@@ -3,20 +3,19 @@ import { useEffect, useState } from "react"
 const getTheme = `${localStorage.getItem('theme')}`
 
 
-
-const Themes = () => {
-    const [goDark, setGoDark] = useState<string>()
-    goDark ? localStorage.setItem('theme', 'true') : localStorage.setItem('theme', '')
-
-    useEffect(() => {
-        setGoDark(getTheme)
-    },[])
+const Themes = ( {setTheme}:{setTheme:any} ) => {
+    const [goDark, setGoDark] = useState(false)
     
-  return (
-        <div className="w-[45px] rounded-full bg-gray-50 grid">
+    useEffect(() => {
+        localStorage.getItem('theme') ? setGoDark(true) : setGoDark(false)
+    },[])
+
+
+    return (
+        <div className="w-[50px] rounded-full bg-gray-50 grid">
             {!goDark ?
                 <svg id="theme-toggle-dark-icon"
-                onClick={() => (setGoDark('True'), window.location.reload())}
+                onClick={() => (setGoDark(true), setTheme(true), localStorage.setItem('theme', 'true'))}
                     className="h-6 w-6 p-1 m-0.5 rounded-full cursor-pointer bg-white text-white"
                     fill="currentColor"
                     strokeWidth={1.5}
@@ -27,7 +26,7 @@ const Themes = () => {
                 </svg>
                 :
                 <svg id="theme-toggle-light-icon" 
-                    onClick={() => (setGoDark(''), window.location.reload())}
+                    onClick={() => (setGoDark(false), setTheme(false), localStorage.setItem('theme', ''))}
                     className={`h-6 w-6 p-1 m-0.5 rounded-full ${goDark && 'justify-self-end'} cursor-pointer bg-white text-white`}
                     fill="currentColor"
                     strokeWidth={1.5}
@@ -39,8 +38,8 @@ const Themes = () => {
                 </svg>
             }
         </div>
-  )
+    )
     
 }
-
+// window.location.reload()
 export default Themes

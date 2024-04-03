@@ -1,8 +1,9 @@
+import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { AuthContext } from '@/contexts/authContext'
 import Proxy from '@/shared/Proxy'
 import axios from 'axios'
-import React, { useState, ChangeEvent, useContext } from 'react'
+import React, { useState, ChangeEvent, useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const justfyCenter = 'flex flex-col justify-center items-center'
@@ -23,6 +24,11 @@ const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, nav
   const setTheme = () => { return localStorage.getItem('theme') }
   const [err,setError] = useState('')
   const navigate = useNavigate()
+  const [isTheme, setIsTheme] = useState(false);
+  
+  useEffect(() => {
+    setIsTheme(localStorage.getItem('theme') ? true : false)
+  },[])
 
   const { login } = useContext(AuthContext)
 
@@ -77,20 +83,22 @@ const Form = ( { Lable, placeholderUsername, placeholderPwd, needEmail, Que, nav
 
   return (
     <>
-    <Navbar />
-    <div className={`h-[88vh] ${justfyCenter} mx-5`}>
-      <h1 className={`font-[900] text-[20px] my-3 ${setTheme() && 'text-white'}`}>{Lable}</h1>
-      <form className={`${justfyCenter} bg-primary-500 p-5 w-full sm:w-[70%] md:w-[40%]  rounded-md`} action="">
-        <input type="text" name='username' className={inputStyle} placeholder={placeholderUsername} onChange={handleChange} />
-        {needEmail && <input type="email" name='email' className={inputStyle} placeholder='Email' onChange={handleChange} />}
-        <input type="password" name='pwd' className={inputStyle}  placeholder={placeholderPwd} onChange={handleChange} />
-        <p className='py-2 h-[25px]'>{
-         err && err 
-         }</p>
-        <button className='rounded-md font-bold bg-gray-500 text-gray-300 px-10 py-2 my-2 mt-5 hover:bg-gray-400 hover:text-white' onClick={handleSubmit}>{Btn}</button>
-        <span className={justfyCenter}>{Que} <Link className='text-secondary-500 font-bold' to={`/${navTo.toLocaleLowerCase()}`}>{navTo}</Link></span>
-      </form>
-    </div>
+      <Navbar setTheme={setIsTheme} />
+        <div className={`h-[85vh] ${justfyCenter} ${isTheme && 'bg-black'}`}>
+          <form className={`${justfyCenter} bg-gray-100 p-5 w-[50%] max-sm:w-full rounded-md`} action="">
+            <h1 className={`font-[900] text-[20px] my-3 ${isTheme && 'text-white'}`}>{Lable}</h1>
+            
+            <input type="text" name='username' className={inputStyle} placeholder={placeholderUsername} onChange={handleChange} />
+            {needEmail && <input type="email" name='email' className={inputStyle} placeholder='Email' onChange={handleChange} />}
+            <input type="password" name='pwd' className={inputStyle}  placeholder={placeholderPwd} onChange={handleChange} />
+            <p className='py-2 h-[25px]'>{
+            err && err 
+            }</p>
+            <button className='rounded-md font-bold bg-gray-500 text-gray-300 px-10 py-2 my-2 mt-5 hover:bg-gray-400 hover:text-white' onClick={handleSubmit}>{Btn}</button>
+            <span className={justfyCenter}>{Que} <Link className='text-gray-500 font-bold' to={`/${navTo.toLocaleLowerCase()}`}>{navTo}</Link></span>
+          </form>
+        </div>
+      <Footer />
     </>
   )
 }

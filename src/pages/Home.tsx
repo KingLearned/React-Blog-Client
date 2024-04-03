@@ -10,23 +10,26 @@ import Likes from '@/shared/Likes';
 import { setPostLikes } from '@/shared/setPostLikes';
 import ImagePath from '@/shared/cloudImg';
 import wordCount from '@/shared/wordCounter';
-// import PostInteraction from '@/shared/PostInteraction';
 import { AuthContext } from '@/contexts/authContext';
 import { Xicon } from '@/components/useimg';
+import Navbar from '@/components/Navbar';
 
 const Home = () => {
   // window.scrollTo({ top: 0, left: 0 })
   const [posts,setPosts] = useState([])
+  const [isTheme, setIsTheme] = useState(false);
   setPostLikes(posts) //HANDLE THE POST LIKES FROM THE LOCAL STORAGE
   
   const { currentUser }:any = useContext(AuthContext)
   
   const [Interact,setInteract] = useState(false)
-
   const category = useLocation().search
+  
+  const setTheme = () => { return localStorage.getItem('theme') }
   
   useEffect(() => {
     const source = axios.CancelToken.source()
+    setIsTheme(localStorage.getItem('theme') ? true : false)
     const fetchData = async () => {
       try{
         window.scrollTo({ top: 0, left: 0 })
@@ -39,7 +42,9 @@ const Home = () => {
     fetchData()
   }, [category])
 
-  const setTheme = () => { return localStorage.getItem('theme') }
+  // console.log(isTheme)
+
+
 
   const showSkeleton = () => {
     const genArray = [1,2,3,4,5]
@@ -74,36 +79,40 @@ const Home = () => {
 
 
   return (
-    <div className={`mt-5 relative`}>
-      {Interact && PostInteraction}
-      <div className='homeclass md:mx-10 mx-3 mt-5 min-h-[75vh] -z-10' key={12}>
-        {posts.length > 0 ? 
-        
-          posts.map((post:postInterface) => (
-            <div className={` border-b-[1px] border-gray-500 md:flex pb-8 mb-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
+    <div className='h-full'>
+      <Navbar setTheme={setIsTheme} />
+      <div className={`pt-5 relative min-h-[100vh] ${isTheme && 'bg-black'}`}>
+        {Interact && PostInteraction}
+        <div className='md:mx-10 mx-3 mt-5 h-full' key={12}>
+          {posts.length > 0 ? 
+          
+            posts.map((post:postInterface) => (
+              <div className={` border-b-[1px] border-gray-500 md:h-[450px] md:flex pb-8 mt-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
-              <div className={`md:mx-10 md:w-[50%]  mb-3`}>
-                  <img className='w-full h-[450px] object-cover' src={post.img} alt={post.img} />
-              </div>
+                <div className={`md:mx-10 md:w-[50%]  mb-3`}>
+                    <img className='w-full h-full object-fill' src={post.img} alt={post.img} />
+                </div>
 
-              <div className='md:w-[60%] md:px-10 justify-between flex flex-col'>
-                <h1 className={`${setTheme() && 'text-white'} md:text-[45px] md:leading-[48px] leading-7 text-[25px] font-bold`}>{post.title}</h1>
-                <p className={` ${setTheme() && 'text-gray-100'} my-3`}> {wordCount(plainText(post.descrp))}. . .</p> 
-                
-                <Link to={`/post/${post.postId}`}>
-                  <button className='border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
-                    Read More
-                  </button>
-                </Link>
-                <div onClick={() => {!currentUser && setInteract(true)}} className={`${setTheme() && 'text-white shadow-sm shadow-white'} flex justify-between shadow-md p-5 rounded-md`}>
-                  <Views /> <Comments /> <Likes postId={post.postId} likes={post.likes} />
+                <div className='md:w-[60%] md:px-10 flex flex-col md:relative'>
+                  <h1 className={`${isTheme && 'text-white'} md:text-[35px] text-justify text-[25px] font-bold`}>{post.title}</h1>
+                  <p className={` ${isTheme && 'text-gray-100'} my-3`}> {wordCount(plainText(post.descrp))}. . .</p> 
+                  
+                  <Link to={`/post/${post.postId}`}>
+                    <button className='border-[1px] rounded border-gray-500 my-3 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
+                      Read More
+                    </button>
+                  </Link>
+
+                  <div onClick={() => {!currentUser && setInteract(true)}} className={`${isTheme && 'text-white shadow-sm shadow-white'} md:absolute md:right-[-5] md:bottom-0 md:w-[90%] flex justify-between shadow-md p-5 mt-4 rounded-md`}>
+                    <Views /> <Comments /> <Likes postId={post.postId} likes={post.likes} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        :
-        showSkeleton()
-        }
+            ))
+          :
+          showSkeleton()
+          }
+        </div>
       </div>
     </div>
   )
