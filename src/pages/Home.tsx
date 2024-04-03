@@ -86,8 +86,8 @@ const Home = () => {
         <div className='md:mx-10 mx-3 mt-5 h-full' key={12}>
           {posts.length > 0 ? 
           
-            posts.map((post:postInterface) => (
-              <div className={` border-b-[1px] border-gray-500 md:h-[450px] md:flex pb-8 mt-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
+            posts.map((post:postInterface, index) => (
+              <div className={` ${posts.length !== index+1 && 'border-b-[1px] border-gray-500'} md:h-[450px] md:flex pb-8 mt-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
                 <div className={`md:mx-10 md:w-[50%]  mb-3`}>
                     <img className='w-full h-full object-fill' src={post.img} alt={post.img} />
