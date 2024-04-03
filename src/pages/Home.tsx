@@ -81,7 +81,7 @@ const Home = () => {
   return (
     <div className='h-full'>
       <Navbar setTheme={setIsTheme} />
-      <div className={`pt-5 relative min-h-[100vh] ${isTheme && 'bg-black'}`}>
+      <div className={`pt-5 pb-10 relative min-h-[100vh] ${isTheme && 'bg-black'}`}>
         {Interact && PostInteraction}
         <div className='md:mx-10 mx-3 mt-5 h-full' key={12}>
           {posts.length > 0 ? 
