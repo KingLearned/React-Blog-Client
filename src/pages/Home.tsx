@@ -13,6 +13,7 @@ import wordCount from '@/shared/wordCounter';
 import { AuthContext } from '@/contexts/authContext';
 import { Xicon } from '@/components/useimg';
 import Navbar from '@/components/Navbar';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
 const Home = () => {
   // window.scrollTo({ top: 0, left: 0 })
@@ -66,28 +67,27 @@ const Home = () => {
   }
 
   const PostInteraction = (
-    <div className="w-full h-[92vh] flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-[1000] -mt-5">
-        <div className="relative h-1/2 bg-white  md:w-1/2 w-[80%] p-10 rounded-md flex flex-col items-center justify-center">
-            <button className="font-bold absolute top-2 right-2" onClick={() => {setInteract(false)}}>X</button>
-            <img className="w-10" src={Xicon} alt={Xicon} />
-            <h1 className="font-bold my-5 text-center">Hey, 👋 register or login to interact.</h1>
-            <button className="font-bold text-white p-3 bg-gray-400 rounded-xl"><a href="/login">Click here to Register</a></button>
-            <p className="mt-3 text-center text-xs">This blog is powered by <a className="font-bold" href="https://cloudflare.com" target="_blanck">Cloudflare</a>. to interact with the contents on this blog, please login by clicking the button above.</p>
-        </div>
+    <div className="w-full h-screen flex flex-col justify-center items-center bg-[rgba(0,0,0,0.3)] fixed z-[1000] ">
+      <div className="relative h-1/2 bg-white  md:w-1/2 w-[80%] p-10 rounded-md flex flex-col items-center justify-center">
+        <XMarkIcon className="w-[28px] cursor-pointer absolute top-2 right-2" onClick={() => setInteract(false)} />
+        <img className="w-10" src={Xicon} alt={Xicon} />
+        <h1 className="font-bold my-5 text-center">Hey, 👋 register or login to interact.</h1>
+        <button className="font-bold text-white p-3 bg-gray-400 rounded-xl"><a href="/login">Click here to Register</a></button>
+        <p className="mt-3 text-center text-xs">This blog is powered by <a className="font-bold" href="https://cloudflare.com" target="_blanck">Cloudflare</a>. to interact with the contents on this blog, please login by clicking the button above.</p>
+      </div>
     </div>
   )
 
 
   return (
-    <div className={`h-full ${isTheme && 'bg-black'}`}>
+    <div>
       <Navbar setTheme={setIsTheme} />
-      <div className={`pb-10 relative min-h-[100vh] `}>
+      <div className={`relative min-h-[100vh] ${isTheme && 'bg-black'}`}>
         {Interact && PostInteraction}
-        <div className='md:mx-10 mx-3 h-full' key={12}>
+        <div className='md:mx-10 mx-3 h-full pt-8'>
           {posts.length > 0 ? 
-          
             posts.map((post:postInterface, index) => (
-              <div className={` ${posts.length !== index+1 && 'border-b-[1px] border-gray-500'} md:flex pb-8 mt-10 ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
+              <div className={` ${posts.length !== index+1 && 'border-b-[1px] border-gray-500'} md:flex pb-8 ${index !== 0 && 'mt-10'} ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
                 <div className={`md:mx-10 md:w-[50%] max-sm:h-[20rem] h-[25rem] mb-3`}>
                   <img className='w-full h-full object-cover' src={post.img} alt={post.img} />

@@ -65,7 +65,7 @@ const Menu = ({ category, mainNews, istheme }:Props) => {
           {posts.length > 1 ?
             <div className='mt-2'>
               {posts.length > 0 ?
-                posts.map((post: postInterface) => ( post.postId !== mainNews &&
+                posts.map((post: postInterface, index) => ( (post.postId !== mainNews && index < 5) &&
                   <div className={`relative mb-10`} key={post.postId}>
                       <h1 className={`text-2xl mb-3 font-bold ${istheme && 'text-white'}`}>{post.title}</h1>
                       <div className={`w-full mb-3`}>

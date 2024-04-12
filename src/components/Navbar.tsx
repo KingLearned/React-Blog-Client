@@ -71,15 +71,15 @@ const Navbar = ({setTheme}:{setTheme:any}) => {
         )}
       </div>
       {!isAboveMediumScreens && isMenuToggled && (
-      <div className='flex flex-col shadow-lg rounded-md gap-1 bg-gray-100 py-2 w-[60%] absolute z-50 right-0 pl-10'>
-        {NavLinks.map(each => (
-          <Linker page={each} key={each}/>
-        ))}
-        <div className='flex flex-col'>
-          <span className={`${currentUser && 'cursor-pointer'} flex mb-1.5`}><UserIcon className='w-[25px]'/> {currentUser? currentUser.username : 'Guest'}</span>
-          <span className={`${btnStyle} w-[max-content]`}>{currentUser? logOutBtn : logInBtn}</span>
+        <div className='flex flex-col shadow-lg w-full absolute top-[3rem] bg-white py-4 pl-10 z-50'>
+          {NavLinks.map(each => (
+            <Linker page={each} key={each}/>
+          ))}
+          <div className='flex flex-col'>
+            <span className={`${currentUser && 'cursor-pointer'} flex my-3`}><UserIcon className='w-[25px]'/> {currentUser? currentUser.username : 'Guest'}</span>
+            <span className={`${btnStyle} w-[max-content]`}>{currentUser? logOutBtn : logInBtn}</span>
+          </div>
         </div>
-      </div>
       )}
 
     </div>
