@@ -14,7 +14,7 @@ const Linker = ({ page }: Props) => {
     const makeActive = currentLink === lowerCasePage ? "text-primary-500" : 'hover:text-gray-100'
 
     return (
-        <Link className={`${makeActive} my-[3px] transition duration-100`} to={`/?cat=${lowerCasePage}`} >
+        <Link className={`${makeActive} my-[3px] transition duration-100`} to={`/?cat=${lowerCasePage}`} onClick={() => localStorage.setItem('page', `1`)}>
             {page}
         </Link>
     );

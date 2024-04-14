@@ -16,53 +16,53 @@ import Navbar from '@/components/Navbar';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 const Home = () => {
-  // window.scrollTo({ top: 0, left: 0 })
-  const [posts,setPosts] = useState([])
+  const [mainPosts, setmainPosts] = useState([])
+  const [page, setPage] = useState(1)
+
   const [isTheme, setIsTheme] = useState(false);
-  setPostLikes(posts) //HANDLE THE POST LIKES FROM THE LOCAL STORAGE
+  setPostLikes(mainPosts) //HANDLE THE POST LIKES FROM THE LOCAL STORAGE
   
   const { currentUser }:any = useContext(AuthContext)
   
   const [Interact,setInteract] = useState(false)
   const category = useLocation().search
   
-  const setTheme = () => { return localStorage.getItem('theme') }
+  const getPage = Number(localStorage.getItem('page')) || 1
   
   useEffect(() => {
-    const source = axios.CancelToken.source()
     setIsTheme(localStorage.getItem('theme') ? true : false)
+    setPage(getPage)
+
     const fetchData = async () => {
+      const source = axios.CancelToken.source()
       try{
-        window.scrollTo({ top: 0, left: 0 })
         const res = await axios.get(`${Proxy}/posts${category}`, {cancelToken: source.token})
-        setPosts(res.data) // Push the data into the "POSTS" Array
+        setmainPosts(res.data)
+        window.scrollTo({ top: 0, left: 0 })
       }catch(err){
         console.log(err)
       }
     }
     fetchData()
+
   }, [category])
-
-  // console.log(isTheme)
-
-
 
   const showSkeleton = () => {
     const genArray = [1,2,3,4,5]
     return (
-      <>
-      {genArray.map((each:any) => (
-        <div className={`animate-pulse border-gray-20 md:flex pb-5 mb-5 ${(genArray.indexOf(each as never)%2) === 0 && 'flex-row-reverse'}`} key={each}>
-          <div className={`md:mx-10 md:w-[40%] h-[280px] rounded-md  mb-3 bg-gray-20`}> </div>
-          <div className='md:w-[60%] md:px-10'>
-            <h1 className='w-full h-10 rounded-md bg-gray-20'></h1>
-            <p className='w-full h-[100px] my-2 rounded-md bg-gray-20'> </p> 
-            <div className='w-[100px] h-[50px] my-2 rounded-md bg-gray-20'></div>
-            <div className='flex justify-between mt-7 shadow-md p-5 rounded-md bg-gray-20'></div>
-          </div>
-        </div>
-      ))}
-      </>
+      <div className='w-full'>
+        {genArray.map((each:any) => (
+            <div className={`animate-pulse border-gray-20 md:flex pb-5 mb-5 ${(genArray.indexOf(each as never)%2) === 0 && 'flex-row-reverse'}`} key={each}>
+              <div className={`md:mx-10 md:w-[40%] h-[280px] rounded-md  mb-3 bg-gray-20`}> </div>
+              <div className='md:w-[60%] md:px-10'>
+                <h1 className='w-full h-10 rounded-md bg-gray-20'></h1>
+                <p className='w-full h-[100px] my-2 rounded-md bg-gray-20'> </p> 
+                <div className='w-[100px] h-[50px] my-2 rounded-md bg-gray-20'></div>
+                <div className='flex justify-between mt-7 shadow-md p-5 rounded-md bg-gray-20'></div>
+              </div>
+            </div>
+        ))}
+      </ div>
     )
   }
 
@@ -78,16 +78,20 @@ const Home = () => {
     </div>
   )
 
+  const pages = []
+  const p = mainPosts.length % 10 == 0 ? mainPosts.length / 10 : Math.floor(mainPosts.length / 10) + 1
+  for (let i = 0; i < p; i++) { pages.push(i+1) }
+
 
   return (
     <div>
       <Navbar setTheme={setIsTheme} />
-      <div className={`relative min-h-[100vh] ${isTheme && 'bg-black'}`}>
+      <div className={`relative min-h-[100vh] flex flex-col ${isTheme && 'bg-black'}`}>
         {Interact && PostInteraction}
         <div className='md:mx-10 mx-3 h-full pt-8'>
-          {posts.length > 0 ? 
-            posts.map((post:postInterface, index) => (
-              <div className={` ${posts.length !== index+1 && 'border-b-[1px] border-gray-500'} md:flex pb-8 ${index !== 0 && 'mt-10'} ${(posts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
+          {mainPosts.length > 0 ? 
+            mainPosts.slice((page*10)-10, page*10).map((post:postInterface, index) => (
+              <div className={` ${mainPosts.slice((page*10)-10, page*10).length !== index+1 && 'border-b-[1px] border-gray-500'} md:flex pb-8 ${index !== 0 && 'mt-10'} ${(mainPosts.indexOf(post as never)%2) === 0 && 'flex-row-reverse'}`} key={post.postId}>
 
                 <div className={`md:mx-10 md:w-[50%] max-sm:h-[20rem] h-[25rem] mb-3`}>
                   <img className='w-full h-full object-cover' src={post.img} alt={post.img} />
@@ -104,7 +108,20 @@ const Home = () => {
               </div>
             ))
           :
-          showSkeleton()
+            showSkeleton()
+          }
+        </div>
+
+        <div className='flex bg-gray-50 self-center rounded-md max-w-max my-5 px-6 py-2 '>
+          {
+            pages.map((pag,index) => (
+              <button className={`transition duration-100 ${page == pag ? 'text-primary-500' : 'hover:text-gray-300'} p-3 font-bold border-r-[2px] border-gray-300`} key={index} 
+              onClick={() => (
+                  localStorage.setItem('page', `${pag}`), 
+                  setPage(pag),window.scrollTo({ top: 0, left: 0 })
+                )}
+              > {pag} </button>
+            ))
           }
         </div>
       </div>
