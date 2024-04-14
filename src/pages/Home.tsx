@@ -112,6 +112,7 @@ const Home = () => {
           }
         </div>
 
+
         <div className='flex bg-gray-50 self-center rounded-md max-w-max my-5 px-6 py-2 '>
           {
             pages.map((pag,index) => (
