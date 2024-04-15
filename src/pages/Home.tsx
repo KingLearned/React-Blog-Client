@@ -113,10 +113,10 @@ const Home = () => {
         </div>
 
 
-        <div className='flex bg-gray-50 self-center rounded-md max-w-max my-5 px-6 py-2 '>
+        <div className={`flex ${isTheme ? 'bg-white' : 'bg-gray-50'} self-center rounded-md max-w-max my-5 px-6 py-2 `}>
           {
             pages.map((pag,index) => (
-              <button className={`transition duration-100 ${page == pag ? 'text-primary-500' : 'hover:text-gray-300'}  ${index !== 0 && 'pl-3'} font-bold border-gray-300 ${index !== pages.length-1 && 'pr-3 border-r-[2px]'}`} key={index} 
+              <button className={`transition duration-100 ${page == pag ? 'text-primary-500' : 'hover:text-gray-300'}  ${index !== 0 && 'pl-3'} font-bold ${isTheme ? 'border-black' : 'border-gray-300'} ${index !== pages.length-1 && 'pr-3 border-r-[2px]'}`} key={index} 
               onClick={() => (
                   localStorage.setItem('page', `${pag}`), 
                   setPage(pag),window.scrollTo({ top: 0, left: 0 })

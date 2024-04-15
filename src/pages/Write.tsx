@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar'
 import { AuthContext } from '@/contexts/authContext'
 import Proxy from '@/shared/Proxy'
 import { PhotoIcon } from '@heroicons/react/24/solid'
@@ -31,7 +32,10 @@ const Write:any = () => {
   const [cat, setCat] = useState('')
   const [errMsg,setErrMsg] = useState('')
 
+  const [isTheme, setIsTheme] = useState(false);
+
   useEffect(() => {
+    setIsTheme(localStorage.getItem('theme') ? true : false)
     if(!currentUser){
       navigate('/')
     }
@@ -103,10 +107,6 @@ const Write:any = () => {
 
   }
 
-  const setTheme = () => {
-    return localStorage.getItem('theme')
-  }
-
   const ListCat = ( { catName }:Props ) => {
     return (
       <div className='flex gap-1 mt-[2px]'>
@@ -117,40 +117,43 @@ const Write:any = () => {
   }
 
   return( 
-    <div className={`${setTheme() && 'text-white'} md:flex justify-between mx-5 mt-5 h-[85vh] relative`}>
-      <div className="w-[100%] mr-5">
-        <input type="text"  className={`${inputStyle} ${setTheme() && 'text-gray-500'}`} value={title} placeholder='Title' onChange={e=>setTitle(e.target.value)} />
-        <ReactQuill className='border-[1px] border-gray-500 w-full  pb-[66px] md:pb-[44px] h-4/5' theme='snow' value={value} onChange={setValue} />
-      </div>
-
-      <div className="menu md:w-[30%]">
-        <div className="border-[1px] border-gray-500 mt-2.5 p-3 h-auto flex flex-col relative">
-
-          <input type="file" id='newsImg' name='newsImg' hidden onChange={handImgChange} />
-          <div className=' h-[100px] w-[35%] border-[1px] border-gray-500 absolute rounded-md right-5'>
-            {imgcache &&
-              <img className="h-full w-full" src={`${imgcache}`} alt={imgcache} />
-            }
-          </div>
-
-          <h1 className='font-bold text-2xl'>Publish</h1>
-          <span><b>Status: </b> Draft</span>
-          <span><b>Visibility: </b> Public</span>
-          <label htmlFor="newsImg" className="flex cursor-pointer font-bold w-[100px]">Change <PhotoIcon className='w-[25px]' /></label>
-
-
-          <div className='mt-5 flex justify-between'>
-            <button className={`${btnStyle}`}>Save as draft</button>
-            <button className={`${btnStyle} bg-secondary-500`} onClick={handleSubmit}>Publish</button>
-          </div>
-          <p className='font-bold mt-1'>{errMsg && `Error: ${errMsg}`}</p>
+    <div className={`${isTheme && 'bg-black'}`}>
+      <Navbar setTheme={setIsTheme} />
+      <div className={`${isTheme && 'text-white'} md:flex justify-between mx-5 mt-5 h-[85vh] relative`}>
+        <div className="w-[100%] mr-5">
+          <input type="text"  className={`${inputStyle} ${isTheme && 'text-gray-500'}`} value={title} placeholder='Title' onChange={e=>setTitle(e.target.value)} />
+          <ReactQuill className='border-[1px] border-gray-500 w-full  pb-[66px] md:pb-[44px] h-4/5' theme='snow' value={value} onChange={setValue} />
         </div>
 
-        <div className="border-[1px] border-gray-500 my-5 p-3 h-auto" >
-          <h1 className='font-bold text-2xl'>Category</h1>
-          {Category.map((eachCat) => (
-            <ListCat catName={eachCat} key={eachCat} />
-          ))}
+        <div className="menu md:w-[30%]">
+          <div className="border-[1px] border-gray-500 mt-2.5 p-3 h-auto flex flex-col relative">
+
+            <input type="file" id='newsImg' name='newsImg' hidden onChange={handImgChange} />
+            <div className=' h-[100px] w-[35%] border-[1px] border-gray-500 absolute rounded-md right-5'>
+              {imgcache &&
+                <img className="h-full w-full" src={`${imgcache}`} alt={imgcache} />
+              }
+            </div>
+
+            <h1 className='font-bold text-2xl'>Publish</h1>
+            <span><b>Status: </b> Draft</span>
+            <span><b>Visibility: </b> Public</span>
+            <label htmlFor="newsImg" className="flex cursor-pointer font-bold w-[100px]">Change <PhotoIcon className='w-[25px]' /></label>
+
+
+            <div className='mt-5 flex justify-between'>
+              <button className={`${btnStyle}`}>Save as draft</button>
+              <button className={`${btnStyle} bg-secondary-500`} onClick={handleSubmit}>Publish</button>
+            </div>
+            <p className='font-bold mt-1'>{errMsg && `Error: ${errMsg}`}</p>
+          </div>
+
+          <div className="border-[1px] border-gray-500 my-5 p-3 h-auto" >
+            <h1 className='font-bold text-2xl'>Category</h1>
+            {Category.map((eachCat) => (
+              <ListCat catName={eachCat} key={eachCat} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
