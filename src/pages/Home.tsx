@@ -102,7 +102,7 @@ const Home = () => {
                   <p className={` ${isTheme && 'text-gray-100'} my-3`}> {wordCount(plainText(post.descrp))}. . .<br /> <Link to={`/post/${post.postId}`} className='font-extrabold text-gray-500 underline'>Read More...</Link></p> 
 
                   <div onClick={() => {!currentUser && setInteract(true)}} className={`${isTheme && 'text-white shadow-sm shadow-white'} md:absolute md:right-[-5] md:bottom-0 md:w-[90%] flex justify-between shadow-md p-5 mt-4 rounded-md`}>
-                    <Views /> <Comments /> <Likes postId={post.postId} likes={post.likes} />
+                    <Views /> <Comments totalNum={post.comments.length} /> <Likes postId={post.postId} likes={post.likes} />
                   </div>
                 </div>
               </div>

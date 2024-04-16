@@ -14,6 +14,7 @@ import userimage from '@/assets/userimg.jpg'
 import ImagePath from '@/shared/cloudImg'
 import { Xicon } from '@/components/useimg'
 import Navbar from '@/components/Navbar'
+import CommentBox from '@/components/CommentBox'
 
 
 const doStyle = 'h-full w-[30px] ml-2 cursor-pointer rounded-full p-1 text-white'
@@ -87,20 +88,21 @@ const Single = () => {
   )
 
   return ( 
+    
     <div>
       <Navbar setTheme={setIsTheme} />
-      <div className={`relative min-h-[100vh] flex md:flex-row flex-col justify-center py-5 md:mx-0 mx-3 ${isTheme && 'bg-black'}`}>  
+      <div className={`relative min-h-[100vh] flex md:flex-row flex-col justify-center py-5 md:mx-0 px-3 ${isTheme && 'bg-black'}`}>  
       
         {post.length > 0 ? 
           <div className='md:w-[60%] '>
+          
             {PostInteraction}
-
             <h1 className={`font-bold text-[35px] md:leading-[48px] leading-9 ${isTheme && 'text-white'}`}>{post[0].title}</h1>
             <div className='my-4'>
               <img className='md:h-[400px] h-[330px] object-cover w-full' src={post[0].img} alt={post[0].img} />
             </div>
             <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${isTheme && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
-              <Views /> <Comments /> <Likes postId={post[0].postId} likes={post[0].likes} />
+              <Views /> <Comments totalNum={post[0].comments.length} /> <Likes postId={post[0].postId} likes={post[0].likes} />
             </div>
 
             <div className="flex items-center mb-3">
@@ -110,23 +112,25 @@ const Single = () => {
                 <p className='-mt-1.5'><span className='text-gray-300 font-bold'>Posted:</span> {`${moment((post[0].date.substring(0, 19)).replace('T', ' ')).fromNow(false)}`}</p>
               </div>
               {currentUser?.username === post[0].username && 
-              <>
-                <Link className={`${doStyle} bg-green-blue`} title='Edit Post' to={`/write?edit=${post[0].postId}`} state={post[0]}>
-                  <PencilIcon />
-                </Link>
-                <Link className={`${doStyle} bg-primary-500`} title='Delete Post' to={''} >
-                  <TrashIcon onClick={handleDelete} />
-                </Link>
-              </>
+                <div className='flex'>
+                  <Link className={`${doStyle} bg-green-blue`} title='Edit Post' to={`/write?edit=${post[0].postId}`} state={post[0]}>
+                    <PencilIcon />
+                  </Link>
+                  <Link className={`${doStyle} bg-primary-500`} title='Delete Post' to={''} >
+                    <TrashIcon onClick={handleDelete} />
+                  </Link>
+                </div>
               }
             </div>
+            
+            <p className={`${isTheme && 'text-gray-50'}`} dangerouslySetInnerHTML={{ __html: post[0].descrp}}></p>
 
-            <div>
-              <div className={`${isTheme && 'text-gray-50'}`} dangerouslySetInnerHTML={{ __html: post[0].descrp}} /></div>
+            <CommentBox postComments={post[0].comments} postId={Number(postId)} istheme={isTheme} />
           </div>
           :
           showSkeleton()
         }
+
         {post.length > 0 ? <Menu category={post[0].cat} mainNews={post[0].postId} istheme={isTheme} /> : <Menu category={''} mainNews={''} istheme={isTheme} />}
       </div>
     </div>

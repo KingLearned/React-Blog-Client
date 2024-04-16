@@ -10,11 +10,13 @@ export type postInterface = {
     descrp: string;
     img: string;
     likes: number;
+    comments: []
 }
 
 export type singlePostInterface = { 
     postId: number;
     likes: number;
+    comments: []
     title: string;
     descrp: string;
     img: string;

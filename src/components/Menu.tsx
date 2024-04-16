@@ -57,8 +57,6 @@ const Menu = ({ category, mainNews, istheme }:Props) => {
     )
   }
 
-  const setTheme = () => { return localStorage.getItem('theme') }
-
   return (
       <div className="md:ml-8 md:w-[30%] mt-10 md:mt-0  md:border-l-[1px] md:border-gray-500 md:pl-8">
           <h1 className="text-center text-xl font-bold bg-gray-500 text-white py-1">RELATED ARTICLES</h1>
@@ -73,7 +71,7 @@ const Menu = ({ category, mainNews, istheme }:Props) => {
                       </div>
                       <div>
                           <p className={`${istheme && 'text-gray-50'}`}> {wordCount(plainText(post.descrp))}. . .</p> 
-                          <button className='border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500'>
+                          <button className={`border-[1px] rounded border-gray-500 mt-2 p-2 font-bold hover:text-primary-100 hover:bg-gray-500 ${istheme && 'text-white'}`}>
                               <Link to={`/post/${post.postId}`}>Read More</Link>
                           </button>
                       </div>

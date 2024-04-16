@@ -12,21 +12,21 @@ type Props = {
 
 const Likes = ({postId, likes}:Props) => {
   const [newLikes, setNewLikes] = useState(Number)
-
+  
   const { currentUser }:any = useContext(AuthContext)
-    
-    useEffect(() => {
-        currentUser && setNewLikes(likes)
-    },[likes])
-
-    const updateLikes = async (likeNumber:number) => {
-      try{
-          const res = currentUser && await axios.put(`${Proxy}/posts/likes/${postId}`, {currentLikes: likeNumber})
-        } catch(err){
-          console.log(err)
-        }
+  
+  useEffect(() => {
+    setNewLikes(likes)
+  },[likes])
+      
+  const updateLikes = async (likeNumber:number) => {
+    try{
+      const res = currentUser && await axios.put(`${Proxy}/posts/likes/${postId}`, {currentLikes: likeNumber})
+    } catch(err){
+      console.log(err)
     }
-
+  }
+  
   return (
     <div className='flex '>{newLikes == null ? 0 : newLikes}<HeartIcon onClick={() => 
       { currentUser &&
