@@ -102,7 +102,7 @@ const Single = () => {
               <img className='md:h-[400px] h-[330px] object-cover w-full' src={post[0].img} alt={post[0].img} />
             </div>
             <div onClick={() => {!currentUser && setInteract(true)}} className={`flex justify-between my-5 shadow-md ${isTheme && 'text-white shadow-sm shadow-white'} p-5 rounded-md`}>
-              <Views /> <Comments totalNum={post[0].comments ? post[0].comments.length : 0} /> <Likes postId={post[0].postId} likes={post[0].likes} />
+              <Views postViews={post[0].views} /> <Comments totalNum={post[0].comments ? post[0].comments.length : 0} /> <Likes postId={post[0].postId} likes={post[0].likes} />
             </div>
 
             <div className="flex items-center mb-3">

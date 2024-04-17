@@ -1,10 +1,14 @@
 import { EyeIcon } from '@heroicons/react/24/solid'
-import React from 'react'
+import React, { useEffect } from 'react'
 
+interface Props {
+  postViews: number
+}
 
-const Views = () => {
+const Views = ({postViews}:Props) => {
+  
   return (
-    <div className='flex'>1982<EyeIcon className='ml-1 w-[20px]'/></div>
+    <div className='flex'>{postViews}<EyeIcon className='ml-1 w-[20px]'/></div>
   )
 }
 
