@@ -24,7 +24,7 @@ const CommentBox = ({ postComments, postId, istheme }:Props) => {
 
     useEffect(() => {
         setComments(postComments)
-    }, [])
+    }, [postComments])
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
