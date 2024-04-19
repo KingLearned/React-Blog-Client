@@ -8,7 +8,7 @@ interface Props {
 const Views = ({postViews}:Props) => {
   
   return (
-    <div className='flex'>{postViews}<EyeIcon className='ml-1 w-[20px]'/></div>
+    <div className='flex'>{postViews > 999 ? `${(postViews/1000).toFixed(1)}k` : postViews}<EyeIcon className='ml-1 w-[20px]'/></div>
   )
 }
 
